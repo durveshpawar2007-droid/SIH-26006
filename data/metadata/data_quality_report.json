@@ -1,0 +1,239 @@
+{
+  "market_data": {
+    "dataset_name": "market_data",
+    "row_count": 961,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "date_coverage": {
+      "start_date": "2023-01-02",
+      "end_date": "2026-09-04",
+      "unique_dates": 961
+    },
+    "duplicate_dates_count": 0,
+    "missing_percentage": {
+      "date": 0.0,
+      "bdi": 100.0,
+      "bdry_close": 4.06,
+      "source_bdi": 4.06,
+      "bunker_vlsfo": 3.43,
+      "bunker_mgo": 3.43,
+      "bunker_ifo380": 3.43,
+      "source_bunker": 3.43,
+      "usd_inr": 0.73,
+      "source_fx": 0.73,
+      "data_type": 0.0
+    },
+    "provenance_breakdown": {
+      "real_percentage": 100.0,
+      "derived_percentage": 0.0,
+      "estimated_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "scenario_percentage": 0.0
+    }
+  },
+  "port_constraints": {
+    "dataset_name": "port_constraints",
+    "row_count": 3,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "duplicate_rows_count": 0,
+    "missing_percentage": {
+      "port": 0.0,
+      "approach_channel_depth_m": 0.0,
+      "entrance_channel_depth_m": 0.0,
+      "berth_depth_m": 0.0,
+      "max_operational_draft_m": 0.0,
+      "tidal_range_m": 66.67,
+      "max_loa_m": 0.0,
+      "max_beam_m": 0.0,
+      "coal_berths_description": 0.0,
+      "handling_capacity_mtpa": 0.0,
+      "vessel_restrictions": 0.0,
+      "capesize_capable": 0.0,
+      "avg_turnaround_hrs": 0.0,
+      "avg_preberthing_wait_hrs_low": 0.0,
+      "avg_preberthing_wait_hrs_high": 0.0,
+      "tidal_constraints": 0.0,
+      "source": 0.0,
+      "source_url": 0.0,
+      "retrieval_date": 0.0,
+      "data_type_infrastructure": 0.0,
+      "data_type_trt": 0.0,
+      "data_type_wait": 0.0
+    },
+    "provenance_breakdown": {
+      "real_percentage": 66.67,
+      "derived_percentage": 0.0,
+      "estimated_percentage": 33.33,
+      "synthetic_percentage": 0.0,
+      "scenario_percentage": 0.0
+    }
+  },
+  "vessel_specs": {
+    "dataset_name": "vessel_specs",
+    "row_count": 4,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "duplicate_rows_count": 0,
+    "missing_percentage": {
+      "vessel_type": 0.0,
+      "variant": 0.0,
+      "dwt_tonnes": 0.0,
+      "dwt_min_tonnes": 0.0,
+      "dwt_max_tonnes": 0.0,
+      "cargo_capacity_tonnes": 0.0,
+      "cargo_capacity_min_tonnes": 0.0,
+      "cargo_capacity_max_tonnes": 0.0,
+      "typical_draft_m": 0.0,
+      "loa_m": 0.0,
+      "beam_m": 0.0,
+      "speed_knots": 0.0,
+      "speed_ballast_knots": 0.0,
+      "fuel_consumption_sea_mt_day": 0.0,
+      "fuel_consumption_ballast_mt_day": 0.0,
+      "fuel_consumption_port_mt_day": 0.0,
+      "fuel_type": 0.0,
+      "charter_rate_low_usd_day": 0.0,
+      "charter_rate_high_usd_day": 0.0,
+      "charter_rate_avg_usd_day": 0.0,
+      "daily_opex_usd_day": 0.0,
+      "gear_type": 0.0,
+      "source": 0.0,
+      "data_type_physical": 0.0,
+      "data_type_fuel": 0.0,
+      "data_type_charter": 0.0,
+      "data_type_opex": 0.0
+    },
+    "provenance_breakdown": {
+      "real_percentage": 25.0,
+      "derived_percentage": 0.0,
+      "estimated_percentage": 75.0,
+      "synthetic_percentage": 0.0,
+      "scenario_percentage": 0.0
+    }
+  },
+  "routes": {
+    "dataset_name": "routes",
+    "row_count": 6,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "duplicate_rows_count": 0,
+    "missing_percentage": {
+      "origin": 0.0,
+      "destination": 0.0,
+      "distance_nm": 0.0,
+      "typical_transit_days": 0.0,
+      "route_notes": 0.0,
+      "vessel_restrictions": 66.67,
+      "source": 0.0,
+      "data_type": 0.0
+    },
+    "provenance_breakdown": {
+      "real_percentage": 100.0,
+      "derived_percentage": 0.0,
+      "estimated_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "scenario_percentage": 0.0
+    }
+  },
+  "plant_params": {
+    "dataset_name": "plant_params",
+    "row_count": 3,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "duplicate_rows_count": 0,
+    "missing_percentage": {
+      "plant": 0.0,
+      "annual_coking_coal_mt": 0.0,
+      "daily_consumption_mt": 0.0,
+      "import_share_pct": 0.0,
+      "specific_consumption_t_per_t_hm": 0.0,
+      "min_safe_stock_days": 0.0,
+      "max_storage_mt": 0.0,
+      "current_stockpile_mt": 0.0,
+      "preferred_port": 0.0,
+      "source": 0.0,
+      "data_type_consumption": 0.0,
+      "data_type_stockpile": 0.0
+    },
+    "provenance_breakdown": {
+      "real_percentage": 0.0,
+      "derived_percentage": 0.0,
+      "estimated_percentage": 50.0,
+      "synthetic_percentage": 0.0,
+      "scenario_percentage": 50.0
+    }
+  },
+  "freight_estimates": {
+    "dataset_name": "freight_estimates",
+    "row_count": 9230,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "date_coverage": {
+      "start_date": "2023-01-03",
+      "end_date": "2026-08-28",
+      "unique_dates": 923
+    },
+    "duplicate_composite_keys_count": 0,
+    "missing_percentage": {
+      "date": 0.0,
+      "origin": 0.0,
+      "destination": 0.0,
+      "vessel_type": 0.0,
+      "estimated_charter_rate_usd_day": 0.0,
+      "one_way_voyage_days": 0.0,
+      "one_way_bunker_cost_usd": 0.0,
+      "one_way_cost_usd_mt": 0.0,
+      "commercial_voyage_days": 0.0,
+      "commercial_bunker_cost_usd": 0.0,
+      "estimated_spot_freight_usd_mt": 0.0,
+      "estimated_freight_rate_usd_mt": 0.0,
+      "estimated_freight_rate_inr_mt": 0.0,
+      "calibration_status": 0.0,
+      "methodology": 0.0,
+      "data_type": 0.0
+    },
+    "provenance_breakdown": {
+      "real_percentage": 0.0,
+      "derived_percentage": 100.0,
+      "estimated_percentage": 0.0,
+      "synthetic_percentage": 0.0,
+      "scenario_percentage": 0.0
+    }
+  },
+  "model_features": {
+    "dataset_name": "model_features",
+    "row_count": 9230,
+    "validation_errors": [],
+    "validation_status": "PASSED",
+    "date_coverage": {
+      "start_date": "2023-01-03",
+      "end_date": "2026-08-28",
+      "unique_dates": 923
+    },
+    "duplicate_composite_keys_count": 0,
+    "missing_percentage": {
+      "date": 0.0,
+      "origin": 0.0,
+      "destination": 0.0,
+      "vessel_type": 0.0,
+      "freight_rate_usd_mt": 0.0,
+      "bdi": 100.0,
+      "bdi_lag_1": 4.12,
+      "bdi_lag_7": 4.88,
+      "bdi_rolling_mean_7": 0.33,
+      "bdi_rolling_std_7": 0.33,
+      "bdi_rolling_mean_30": 0.76,
+      "bunker_vlsfo": 0.0,
+      "bunker_vlsfo_lag_1": 0.33,
+      "bunker_change_pct_7d": 2.38,
+      "usd_inr": 0.0,
+      "usd_inr_lag_1": 0.11,
+      "usd_inr_change_pct_7d": 0.98,
+      "bdi_momentum_14d": 9.53,
+      "bunker_bdi_ratio": 4.44,
+      "day_of_week": 0.0,
+      "month": 0.0
+    }
+  }
+}

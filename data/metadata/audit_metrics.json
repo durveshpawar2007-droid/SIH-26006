@@ -1,0 +1,1938 @@
+{
+  "processed/bdi_cleaned.csv": {
+    "file_path": "processed/bdi_cleaned.csv",
+    "row_count": 922,
+    "col_count": 8,
+    "columns": [
+      "date",
+      "bdi",
+      "bdry_close",
+      "bdi_filled",
+      "bdry_close_filled",
+      "source_bdi",
+      "source_bdry",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdi": {
+        "null_count": 922,
+        "percentage": 100.0
+      },
+      "bdry_close": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdi_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdry_close_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source_bdi": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source_bdry": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "bdry_close": {
+        "min": 4.5,
+        "q25": 6.27,
+        "median": 8.74,
+        "q75": 11.39,
+        "max": 16.84,
+        "mean": 9.04,
+        "std": 2.89,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 922
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-03",
+    "date_max": "2026-09-04",
+    "unique_dates": 922,
+    "duplicate_dates": 0
+  },
+  "processed/bunker_prices_cleaned.csv": {
+    "file_path": "processed/bunker_prices_cleaned.csv",
+    "row_count": 928,
+    "col_count": 13,
+    "columns": [
+      "date",
+      "bunker_vlsfo",
+      "bunker_mgo",
+      "bunker_ifo380",
+      "bunker_ifo180",
+      "bunker_vlsfo_filled",
+      "bunker_mgo_filled",
+      "bunker_ifo380_filled",
+      "bunker_ifo180_filled",
+      "currency",
+      "unit",
+      "source",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_vlsfo": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_mgo": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_ifo380": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_ifo180": {
+        "null_count": 928,
+        "percentage": 100.0
+      },
+      "bunker_vlsfo_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_mgo_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_ifo380_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_ifo180_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "currency": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "unit": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "bunker_vlsfo": {
+        "min": 455.5,
+        "q25": 573.38,
+        "median": 618.25,
+        "q75": 665.0,
+        "max": 1053.0,
+        "mean": 632.67,
+        "std": 107.5,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_mgo": {
+        "min": 692.5,
+        "q25": 762.25,
+        "median": 815.25,
+        "q75": 933.62,
+        "max": 1843.5,
+        "mean": 898.67,
+        "std": 218.62,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_ifo380": {
+        "min": 382.0,
+        "q25": 467.88,
+        "median": 506.0,
+        "q75": 541.5,
+        "max": 916.0,
+        "mean": 522.25,
+        "std": 87.75,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 928
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-02",
+    "date_max": "2026-09-02",
+    "unique_dates": 928,
+    "duplicate_dates": 0
+  },
+  "processed/freight_estimates.csv": {
+    "file_path": "processed/freight_estimates.csv",
+    "row_count": 9230,
+    "col_count": 11,
+    "columns": [
+      "date",
+      "origin",
+      "destination",
+      "vessel_type",
+      "estimated_charter_rate_usd_day",
+      "estimated_freight_rate_usd_mt",
+      "estimated_freight_rate_inr_mt",
+      "voyage_days",
+      "bunker_cost_usd",
+      "methodology",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "origin": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "destination": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "vessel_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "estimated_charter_rate_usd_day": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "estimated_freight_rate_usd_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "estimated_freight_rate_inr_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "voyage_days": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_cost_usd": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "methodology": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "estimated_charter_rate_usd_day": {
+        "min": 9500.0,
+        "q25": 13820.82,
+        "median": 15975.59,
+        "q75": 21223.24,
+        "max": 44000.0,
+        "mean": 17749.82,
+        "std": 5737.55,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "estimated_freight_rate_usd_mt": {
+        "min": 2.95,
+        "q25": 5.27,
+        "median": 6.37,
+        "q75": 9.54,
+        "max": 14.8,
+        "mean": 7.08,
+        "std": 2.74,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "estimated_freight_rate_inr_mt": {
+        "min": 245.15,
+        "q25": 448.25,
+        "median": 539.56,
+        "q75": 820.85,
+        "max": 1367.51,
+        "mean": 611.12,
+        "std": 243.58,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "voyage_days": {
+        "min": 10.13,
+        "q25": 10.51,
+        "median": 15.6,
+        "q75": 20.53,
+        "max": 21.08,
+        "mean": 15.46,
+        "std": 4.98,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_cost_usd": {
+        "min": 109340.65,
+        "q25": 172774.36,
+        "median": 287680.82,
+        "q75": 387029.14,
+        "max": 923917.59,
+        "mean": 313081.12,
+        "std": 154497.54,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "DERIVED": 9230
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-03",
+    "date_max": "2026-08-28",
+    "unique_dates": 923,
+    "duplicate_dates": 8307
+  },
+  "processed/market_data.csv": {
+    "file_path": "processed/market_data.csv",
+    "row_count": 961,
+    "col_count": 11,
+    "columns": [
+      "date",
+      "bdi",
+      "bdry_close",
+      "source_bdi",
+      "bunker_vlsfo",
+      "bunker_mgo",
+      "bunker_ifo380",
+      "source_bunker",
+      "usd_inr",
+      "source_fx",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdi": {
+        "null_count": 961,
+        "percentage": 100.0
+      },
+      "bdry_close": {
+        "null_count": 39,
+        "percentage": 4.06
+      },
+      "source_bdi": {
+        "null_count": 39,
+        "percentage": 4.06
+      },
+      "bunker_vlsfo": {
+        "null_count": 33,
+        "percentage": 3.43
+      },
+      "bunker_mgo": {
+        "null_count": 33,
+        "percentage": 3.43
+      },
+      "bunker_ifo380": {
+        "null_count": 33,
+        "percentage": 3.43
+      },
+      "source_bunker": {
+        "null_count": 33,
+        "percentage": 3.43
+      },
+      "usd_inr": {
+        "null_count": 7,
+        "percentage": 0.73
+      },
+      "source_fx": {
+        "null_count": 7,
+        "percentage": 0.73
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "bdry_close": {
+        "min": 4.5,
+        "q25": 6.27,
+        "median": 8.74,
+        "q75": 11.39,
+        "max": 16.84,
+        "mean": 9.04,
+        "std": 2.89,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_vlsfo": {
+        "min": 455.5,
+        "q25": 573.38,
+        "median": 618.25,
+        "q75": 665.0,
+        "max": 1053.0,
+        "mean": 632.67,
+        "std": 107.5,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_mgo": {
+        "min": 692.5,
+        "q25": 762.25,
+        "median": 815.25,
+        "q75": 933.62,
+        "max": 1843.5,
+        "mean": 898.67,
+        "std": 218.62,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_ifo380": {
+        "min": 382.0,
+        "q25": 467.88,
+        "median": 506.0,
+        "q75": 541.5,
+        "max": 916.0,
+        "mean": 522.25,
+        "std": 87.75,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "usd_inr": {
+        "min": 80.99,
+        "q25": 83.12,
+        "median": 84.07,
+        "q75": 88.23,
+        "max": 96.82,
+        "mean": 86.13,
+        "std": 4.17,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 961
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-02",
+    "date_max": "2026-09-04",
+    "unique_dates": 961,
+    "duplicate_dates": 0
+  },
+  "processed/model_features.csv": {
+    "file_path": "processed/model_features.csv",
+    "row_count": 9230,
+    "col_count": 21,
+    "columns": [
+      "date",
+      "origin",
+      "destination",
+      "vessel_type",
+      "freight_rate_usd_mt",
+      "bdi",
+      "bdi_lag_1",
+      "bdi_lag_7",
+      "bdi_rolling_mean_7",
+      "bdi_rolling_std_7",
+      "bdi_rolling_mean_30",
+      "bunker_vlsfo",
+      "bunker_vlsfo_lag_1",
+      "bunker_change_pct_7d",
+      "usd_inr",
+      "usd_inr_lag_1",
+      "usd_inr_change_pct_7d",
+      "bdi_momentum_14d",
+      "bunker_bdi_ratio",
+      "day_of_week",
+      "month"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "origin": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "destination": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "vessel_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "freight_rate_usd_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdi": {
+        "null_count": 9230,
+        "percentage": 100.0
+      },
+      "bdi_lag_1": {
+        "null_count": 380,
+        "percentage": 4.12
+      },
+      "bdi_lag_7": {
+        "null_count": 450,
+        "percentage": 4.88
+      },
+      "bdi_rolling_mean_7": {
+        "null_count": 30,
+        "percentage": 0.33
+      },
+      "bdi_rolling_std_7": {
+        "null_count": 30,
+        "percentage": 0.33
+      },
+      "bdi_rolling_mean_30": {
+        "null_count": 70,
+        "percentage": 0.76
+      },
+      "bunker_vlsfo": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_vlsfo_lag_1": {
+        "null_count": 30,
+        "percentage": 0.33
+      },
+      "bunker_change_pct_7d": {
+        "null_count": 220,
+        "percentage": 2.38
+      },
+      "usd_inr": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "usd_inr_lag_1": {
+        "null_count": 10,
+        "percentage": 0.11
+      },
+      "usd_inr_change_pct_7d": {
+        "null_count": 90,
+        "percentage": 0.98
+      },
+      "bdi_momentum_14d": {
+        "null_count": 880,
+        "percentage": 9.53
+      },
+      "bunker_bdi_ratio": {
+        "null_count": 410,
+        "percentage": 4.44
+      },
+      "day_of_week": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "month": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "freight_rate_usd_mt": {
+        "min": 2.95,
+        "q25": 5.27,
+        "median": 6.37,
+        "q75": 9.54,
+        "max": 14.8,
+        "mean": 7.08,
+        "std": 2.74,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdi_lag_1": {
+        "min": 4.5,
+        "q25": 6.25,
+        "median": 8.8,
+        "q75": 11.4,
+        "max": 16.84,
+        "mean": 9.03,
+        "std": 2.87,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdi_lag_7": {
+        "min": 4.5,
+        "q25": 6.2,
+        "median": 8.78,
+        "q75": 11.34,
+        "max": 16.84,
+        "mean": 8.99,
+        "std": 2.84,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdi_rolling_mean_7": {
+        "min": 4.68,
+        "q25": 6.2,
+        "median": 8.79,
+        "q75": 11.3,
+        "max": 16.26,
+        "mean": 9.0,
+        "std": 2.83,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdi_rolling_std_7": {
+        "min": 0.02,
+        "q25": 0.16,
+        "median": 0.24,
+        "q75": 0.35,
+        "max": 1.01,
+        "mean": 0.28,
+        "std": 0.17,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdi_rolling_mean_30": {
+        "min": 4.96,
+        "q25": 6.28,
+        "median": 8.82,
+        "q75": 11.15,
+        "max": 15.01,
+        "mean": 8.95,
+        "std": 2.72,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_vlsfo": {
+        "min": 455.5,
+        "q25": 573.0,
+        "median": 618.0,
+        "q75": 664.5,
+        "max": 1053.0,
+        "mean": 631.85,
+        "std": 107.03,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_vlsfo_lag_1": {
+        "min": 455.5,
+        "q25": 573.38,
+        "median": 618.0,
+        "q75": 664.5,
+        "max": 1053.0,
+        "mean": 631.73,
+        "std": 106.82,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_change_pct_7d": {
+        "min": -13.47,
+        "q25": -1.98,
+        "median": -0.22,
+        "q75": 1.73,
+        "max": 73.16,
+        "mean": 0.38,
+        "std": 6.55,
+        "negative_count": 4730,
+        "zero_count": 90
+      },
+      "usd_inr": {
+        "min": 80.99,
+        "q25": 83.1,
+        "median": 83.99,
+        "q75": 88.06,
+        "max": 96.82,
+        "mean": 86.06,
+        "std": 4.2,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "usd_inr_lag_1": {
+        "min": 80.99,
+        "q25": 83.1,
+        "median": 83.98,
+        "q75": 88.06,
+        "max": 96.82,
+        "mean": 86.05,
+        "std": 4.19,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "usd_inr_change_pct_7d": {
+        "min": -2.29,
+        "q25": -0.17,
+        "median": 0.08,
+        "q75": 0.42,
+        "max": 2.23,
+        "mean": 0.12,
+        "std": 0.61,
+        "negative_count": 3570,
+        "zero_count": 160
+      },
+      "bdi_momentum_14d": {
+        "min": -29.3,
+        "q25": -6.82,
+        "median": 0.22,
+        "q75": 8.75,
+        "max": 68.74,
+        "mean": 1.51,
+        "std": 13.53,
+        "negative_count": 4140,
+        "zero_count": 10
+      },
+      "bunker_bdi_ratio": {
+        "min": 39.25,
+        "q25": 56.45,
+        "median": 69.47,
+        "q75": 94.17,
+        "max": 141.77,
+        "mean": 76.41,
+        "std": 24.31,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "day_of_week": {
+        "min": 0.0,
+        "q25": 1.0,
+        "median": 2.0,
+        "q75": 3.0,
+        "max": 4.0,
+        "mean": 2.0,
+        "std": 1.41,
+        "negative_count": 0,
+        "zero_count": 1830
+      },
+      "month": {
+        "min": 1.0,
+        "q25": 3.0,
+        "median": 6.0,
+        "q75": 9.0,
+        "max": 12.0,
+        "mean": 6.04,
+        "std": 3.35,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {},
+    "anomalies": [
+      "Negative values detected in numeric column: bunker_change_pct_7d",
+      "Negative values detected in numeric column: usd_inr_change_pct_7d",
+      "Negative values detected in numeric column: bdi_momentum_14d"
+    ],
+    "date_column": "date",
+    "date_min": "2023-01-03",
+    "date_max": "2026-08-28",
+    "unique_dates": 923,
+    "duplicate_dates": 8307
+  },
+  "processed/plant_params.csv": {
+    "file_path": "processed/plant_params.csv",
+    "row_count": 3,
+    "col_count": 12,
+    "columns": [
+      "plant",
+      "annual_coking_coal_mt",
+      "daily_consumption_mt",
+      "import_share_pct",
+      "specific_consumption_t_per_t_hm",
+      "min_safe_stock_days",
+      "max_storage_mt",
+      "current_stockpile_mt",
+      "preferred_port",
+      "source",
+      "data_type_consumption",
+      "data_type_stockpile"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "plant": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "annual_coking_coal_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "daily_consumption_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "import_share_pct": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "specific_consumption_t_per_t_hm": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "min_safe_stock_days": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "max_storage_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "current_stockpile_mt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "preferred_port": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_consumption": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_stockpile": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "annual_coking_coal_mt": {
+        "min": 3.2,
+        "q25": 3.6,
+        "median": 4.0,
+        "q75": 4.0,
+        "max": 4.0,
+        "mean": 3.73,
+        "std": 0.46,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "daily_consumption_mt": {
+        "min": 8767.0,
+        "q25": 9863.0,
+        "median": 10959.0,
+        "q75": 10959.0,
+        "max": 10959.0,
+        "mean": 10228.33,
+        "std": 1265.55,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "import_share_pct": {
+        "min": 82.0,
+        "q25": 82.0,
+        "median": 82.0,
+        "q75": 87.0,
+        "max": 92.0,
+        "mean": 85.33,
+        "std": 5.77,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "specific_consumption_t_per_t_hm": {
+        "min": 0.8,
+        "q25": 0.8,
+        "median": 0.8,
+        "q75": 0.8,
+        "max": 0.8,
+        "mean": 0.8,
+        "std": 0.0,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "min_safe_stock_days": {
+        "min": 15.0,
+        "q25": 15.0,
+        "median": 15.0,
+        "q75": 15.0,
+        "max": 15.0,
+        "mean": 15.0,
+        "std": 0.0,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "max_storage_mt": {
+        "min": 300000.0,
+        "q25": 325000.0,
+        "median": 350000.0,
+        "q75": 375000.0,
+        "max": 400000.0,
+        "mean": 350000.0,
+        "std": 50000.0,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "current_stockpile_mt": {
+        "min": 150000.0,
+        "q25": 162500.0,
+        "median": 175000.0,
+        "q75": 187500.0,
+        "max": 200000.0,
+        "mean": 175000.0,
+        "std": 25000.0,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type_consumption": {
+        "ESTIMATED": 3
+      },
+      "data_type_stockpile": {
+        "SCENARIO": 3
+      }
+    },
+    "anomalies": []
+  },
+  "processed/port_constraints.csv": {
+    "file_path": "processed/port_constraints.csv",
+    "row_count": 3,
+    "col_count": 22,
+    "columns": [
+      "port",
+      "approach_channel_depth_m",
+      "entrance_channel_depth_m",
+      "berth_depth_m",
+      "max_operational_draft_m",
+      "tidal_range_m",
+      "max_loa_m",
+      "max_beam_m",
+      "coal_berths_description",
+      "handling_capacity_mtpa",
+      "vessel_restrictions",
+      "capesize_capable",
+      "avg_turnaround_hrs",
+      "avg_preberthing_wait_hrs_low",
+      "avg_preberthing_wait_hrs_high",
+      "tidal_constraints",
+      "source",
+      "source_url",
+      "retrieval_date",
+      "data_type_infrastructure",
+      "data_type_trt",
+      "data_type_wait"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "port": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "approach_channel_depth_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "entrance_channel_depth_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "berth_depth_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "max_operational_draft_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "tidal_range_m": {
+        "null_count": 2,
+        "percentage": 66.67
+      },
+      "max_loa_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "max_beam_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "coal_berths_description": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "handling_capacity_mtpa": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "vessel_restrictions": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "capesize_capable": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "avg_turnaround_hrs": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "avg_preberthing_wait_hrs_low": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "avg_preberthing_wait_hrs_high": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "tidal_constraints": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source_url": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "retrieval_date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_infrastructure": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_trt": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_wait": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "approach_channel_depth_m": {
+        "min": 9.2,
+        "q25": 13.95,
+        "median": 18.7,
+        "q75": 18.85,
+        "max": 19.0,
+        "mean": 15.63,
+        "std": 5.57,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "entrance_channel_depth_m": {
+        "min": 9.2,
+        "q25": 12.35,
+        "median": 15.5,
+        "q75": 16.3,
+        "max": 17.1,
+        "mean": 13.93,
+        "std": 4.18,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "berth_depth_m": {
+        "min": 9.1,
+        "q25": 12.55,
+        "median": 16.0,
+        "q75": 17.05,
+        "max": 18.1,
+        "mean": 14.4,
+        "std": 4.71,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "max_operational_draft_m": {
+        "min": 9.1,
+        "q25": 12.8,
+        "median": 16.5,
+        "q75": 17.3,
+        "max": 18.1,
+        "mean": 14.57,
+        "std": 4.8,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "tidal_range_m": {
+        "min": 4.5,
+        "q25": 4.5,
+        "median": 4.5,
+        "q75": 4.5,
+        "max": 4.5,
+        "mean": 4.5,
+        "std": 0.0,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "max_loa_m": {
+        "min": 240.0,
+        "q25": 270.0,
+        "median": 300.0,
+        "q75": 328.0,
+        "max": 356.0,
+        "mean": 298.67,
+        "std": 58.01,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "max_beam_m": {
+        "min": 32.26,
+        "q25": 39.13,
+        "median": 46.0,
+        "q75": 48.0,
+        "max": 50.0,
+        "mean": 42.75,
+        "std": 9.3,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "handling_capacity_mtpa": {
+        "min": 50.7,
+        "q25": 97.35,
+        "median": 144.0,
+        "q75": 216.5,
+        "max": 289.0,
+        "mean": 161.23,
+        "std": 120.08,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "avg_turnaround_hrs": {
+        "min": 46.16,
+        "q25": 46.47,
+        "median": 46.79,
+        "q75": 57.99,
+        "max": 69.19,
+        "mean": 54.05,
+        "std": 13.12,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "avg_preberthing_wait_hrs_low": {
+        "min": 8.0,
+        "q25": 10.0,
+        "median": 12.0,
+        "q75": 18.0,
+        "max": 24.0,
+        "mean": 14.67,
+        "std": 8.33,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "avg_preberthing_wait_hrs_high": {
+        "min": 16.0,
+        "q25": 20.0,
+        "median": 24.0,
+        "q75": 36.0,
+        "max": 48.0,
+        "mean": 29.33,
+        "std": 16.65,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type_infrastructure": {
+        "REAL": 3
+      },
+      "data_type_trt": {
+        "REAL": 3
+      },
+      "data_type_wait": {
+        "ESTIMATED": 3
+      }
+    },
+    "anomalies": []
+  },
+  "processed/routes.csv": {
+    "file_path": "processed/routes.csv",
+    "row_count": 6,
+    "col_count": 8,
+    "columns": [
+      "origin",
+      "destination",
+      "distance_nm",
+      "typical_transit_days",
+      "route_notes",
+      "vessel_restrictions",
+      "source",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "origin": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "destination": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "distance_nm": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "typical_transit_days": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "route_notes": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "vessel_restrictions": {
+        "null_count": 4,
+        "percentage": 66.67
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "distance_nm": {
+        "min": 2225.0,
+        "q25": 2350.0,
+        "median": 3887.5,
+        "q75": 5387.5,
+        "max": 5500.0,
+        "mean": 3870.83,
+        "std": 1695.24,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "typical_transit_days": {
+        "min": 7.4,
+        "q25": 7.88,
+        "median": 12.95,
+        "q75": 17.95,
+        "max": 18.3,
+        "mean": 12.9,
+        "std": 5.63,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 6
+      }
+    },
+    "anomalies": []
+  },
+  "processed/usd_inr_cleaned.csv": {
+    "file_path": "processed/usd_inr_cleaned.csv",
+    "row_count": 954,
+    "col_count": 5,
+    "columns": [
+      "date",
+      "usd_inr",
+      "usd_inr_filled",
+      "source",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "usd_inr": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "usd_inr_filled": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "usd_inr": {
+        "min": 80.99,
+        "q25": 83.12,
+        "median": 84.07,
+        "q75": 88.23,
+        "max": 96.82,
+        "mean": 86.13,
+        "std": 4.17,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 954
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-03",
+    "date_max": "2026-08-28",
+    "unique_dates": 954,
+    "duplicate_dates": 0
+  },
+  "processed/vessel_specs.csv": {
+    "file_path": "processed/vessel_specs.csv",
+    "row_count": 4,
+    "col_count": 19,
+    "columns": [
+      "vessel_type",
+      "variant",
+      "dwt_tonnes",
+      "cargo_capacity_tonnes",
+      "typical_draft_m",
+      "loa_m",
+      "beam_m",
+      "speed_knots",
+      "fuel_consumption_sea_mt_day",
+      "fuel_consumption_port_mt_day",
+      "fuel_type",
+      "charter_rate_low_usd_day",
+      "charter_rate_high_usd_day",
+      "charter_rate_avg_usd_day",
+      "gear_type",
+      "source",
+      "data_type_physical",
+      "data_type_fuel",
+      "data_type_charter"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "vessel_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "variant": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "dwt_tonnes": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "cargo_capacity_tonnes": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "typical_draft_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "loa_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "beam_m": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "speed_knots": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "fuel_consumption_sea_mt_day": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "fuel_consumption_port_mt_day": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "fuel_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "charter_rate_low_usd_day": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "charter_rate_high_usd_day": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "charter_rate_avg_usd_day": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "gear_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_physical": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_fuel": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type_charter": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "dwt_tonnes": {
+        "min": 75000.0,
+        "q25": 80250.0,
+        "median": 131000.0,
+        "q75": 187500.0,
+        "max": 210000.0,
+        "mean": 136750.0,
+        "std": 68426.97,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "cargo_capacity_tonnes": {
+        "min": 70000.0,
+        "q25": 75250.0,
+        "median": 123500.0,
+        "q75": 177500.0,
+        "max": 200000.0,
+        "mean": 129250.0,
+        "std": 65591.54,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "typical_draft_m": {
+        "min": 14.0,
+        "q25": 14.3,
+        "median": 16.3,
+        "q75": 18.27,
+        "max": 18.5,
+        "mean": 16.28,
+        "std": 2.4,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "loa_m": {
+        "min": 229.0,
+        "q25": 229.0,
+        "median": 262.0,
+        "q75": 296.25,
+        "max": 300.0,
+        "mean": 263.25,
+        "std": 39.6,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "beam_m": {
+        "min": 32.26,
+        "q25": 32.26,
+        "median": 39.63,
+        "q75": 47.75,
+        "max": 50.0,
+        "mean": 40.38,
+        "std": 9.46,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "speed_knots": {
+        "min": 13.0,
+        "q25": 13.0,
+        "median": 13.0,
+        "q75": 13.0,
+        "max": 13.0,
+        "mean": 13.0,
+        "std": 0.0,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "fuel_consumption_sea_mt_day": {
+        "min": 32.0,
+        "q25": 33.5,
+        "median": 42.0,
+        "q75": 50.5,
+        "max": 52.0,
+        "mean": 42.0,
+        "std": 10.46,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "fuel_consumption_port_mt_day": {
+        "min": 3.5,
+        "q25": 3.5,
+        "median": 4.0,
+        "q75": 4.62,
+        "max": 5.0,
+        "mean": 4.12,
+        "std": 0.75,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "charter_rate_low_usd_day": {
+        "min": 9500.0,
+        "q25": 9875.0,
+        "median": 10500.0,
+        "q75": 11250.0,
+        "max": 12000.0,
+        "mean": 10625.0,
+        "std": 1108.68,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "charter_rate_high_usd_day": {
+        "min": 18500.0,
+        "q25": 18875.0,
+        "median": 31500.0,
+        "q75": 44500.0,
+        "max": 46000.0,
+        "mean": 31875.0,
+        "std": 15178.8,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "charter_rate_avg_usd_day": {
+        "min": 14000.0,
+        "q25": 14750.0,
+        "median": 18500.0,
+        "q75": 22500.0,
+        "max": 24000.0,
+        "mean": 18750.0,
+        "std": 4991.66,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type_physical": {
+        "REAL": 4
+      },
+      "data_type_fuel": {
+        "ESTIMATED": 4
+      },
+      "data_type_charter": {
+        "ESTIMATED": 4
+      }
+    },
+    "anomalies": []
+  },
+  "raw/bdi_raw.csv": {
+    "file_path": "raw/bdi_raw.csv",
+    "row_count": 922,
+    "col_count": 10,
+    "columns": [
+      "date",
+      "bdry_open",
+      "bdry_high",
+      "bdry_low",
+      "bdry_close",
+      "bdry_volume",
+      "bdi",
+      "source_bdi",
+      "source_bdry",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdry_open": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdry_high": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdry_low": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdry_close": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdry_volume": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bdi": {
+        "null_count": 922,
+        "percentage": 100.0
+      },
+      "source_bdi": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source_bdry": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "bdry_open": {
+        "min": 4.6,
+        "q25": 6.27,
+        "median": 8.74,
+        "q75": 11.34,
+        "max": 16.7,
+        "mean": 9.03,
+        "std": 2.89,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdry_high": {
+        "min": 4.6,
+        "q25": 6.35,
+        "median": 8.81,
+        "q75": 11.47,
+        "max": 16.99,
+        "mean": 9.16,
+        "std": 2.93,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdry_low": {
+        "min": 4.48,
+        "q25": 6.18,
+        "median": 8.65,
+        "q75": 11.2,
+        "max": 16.65,
+        "mean": 8.91,
+        "std": 2.84,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdry_close": {
+        "min": 4.5,
+        "q25": 6.27,
+        "median": 8.74,
+        "q75": 11.39,
+        "max": 16.84,
+        "mean": 9.04,
+        "std": 2.89,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bdry_volume": {
+        "min": 2900.0,
+        "q25": 53250.0,
+        "median": 126300.0,
+        "q75": 263925.0,
+        "max": 2067500.0,
+        "mean": 199667.14,
+        "std": 224785.96,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 922
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-03",
+    "date_max": "2026-09-04",
+    "unique_dates": 922,
+    "duplicate_dates": 0
+  },
+  "raw/bunker_prices_raw.csv": {
+    "file_path": "raw/bunker_prices_raw.csv",
+    "row_count": 928,
+    "col_count": 9,
+    "columns": [
+      "date",
+      "bunker_vlsfo",
+      "bunker_mgo",
+      "bunker_ifo380",
+      "bunker_ifo180",
+      "currency",
+      "unit",
+      "source",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_vlsfo": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_mgo": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_ifo380": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "bunker_ifo180": {
+        "null_count": 928,
+        "percentage": 100.0
+      },
+      "currency": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "unit": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "bunker_vlsfo": {
+        "min": 455.5,
+        "q25": 573.38,
+        "median": 618.25,
+        "q75": 665.0,
+        "max": 1053.0,
+        "mean": 632.67,
+        "std": 107.5,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_mgo": {
+        "min": 692.5,
+        "q25": 762.25,
+        "median": 815.25,
+        "q75": 933.62,
+        "max": 1843.5,
+        "mean": 898.67,
+        "std": 218.62,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "bunker_ifo380": {
+        "min": 382.0,
+        "q25": 467.88,
+        "median": 506.0,
+        "q75": 541.5,
+        "max": 916.0,
+        "mean": 522.25,
+        "std": 87.75,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 928
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-02",
+    "date_max": "2026-09-02",
+    "unique_dates": 928,
+    "duplicate_dates": 0
+  },
+  "raw/usd_inr_raw.csv": {
+    "file_path": "raw/usd_inr_raw.csv",
+    "row_count": 954,
+    "col_count": 4,
+    "columns": [
+      "date",
+      "usd_inr",
+      "source",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "usd_inr": {
+        "null_count": 38,
+        "percentage": 3.98
+      },
+      "source": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "usd_inr": {
+        "min": 80.99,
+        "q25": 83.12,
+        "median": 84.06,
+        "q75": 88.22,
+        "max": 96.82,
+        "mean": 86.14,
+        "std": 4.18,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "REAL": 954
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2023-01-03",
+    "date_max": "2026-08-28",
+    "unique_dates": 954,
+    "duplicate_dates": 0
+  },
+  "synthetic/scenario_data.csv": {
+    "file_path": "synthetic/scenario_data.csv",
+    "row_count": 92,
+    "col_count": 8,
+    "columns": [
+      "scenario_name",
+      "date",
+      "variable",
+      "baseline_value",
+      "scenario_value",
+      "change_pct",
+      "scenario_type",
+      "data_type"
+    ],
+    "duplicate_rows": 0,
+    "missing_summary": {
+      "scenario_name": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "date": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "variable": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "baseline_value": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "scenario_value": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "change_pct": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "scenario_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      },
+      "data_type": {
+        "null_count": 0,
+        "percentage": 0.0
+      }
+    },
+    "numeric_summary": {
+      "baseline_value": {
+        "min": 12.0,
+        "q25": 14.14,
+        "median": 95.57,
+        "q75": 794.5,
+        "max": 835.5,
+        "mean": 300.14,
+        "std": 358.32,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "scenario_value": {
+        "min": 15.85,
+        "q25": 18.54,
+        "median": 100.41,
+        "q75": 953.4,
+        "max": 1002.6,
+        "mean": 357.69,
+        "std": 431.14,
+        "negative_count": 0,
+        "zero_count": 0
+      },
+      "change_pct": {
+        "min": 5.0,
+        "q25": 5.0,
+        "median": 20.0,
+        "q75": 30.0,
+        "max": 600.0,
+        "mean": 30.25,
+        "std": 81.2,
+        "negative_count": 0,
+        "zero_count": 0
+      }
+    },
+    "provenance_summary": {
+      "data_type": {
+        "SYNTHETIC": 92
+      }
+    },
+    "anomalies": [],
+    "date_column": "date",
+    "date_min": "2026-07-17",
+    "date_max": "2026-08-28",
+    "unique_dates": 30,
+    "duplicate_dates": 61
+  }
+}

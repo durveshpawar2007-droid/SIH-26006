@@ -1,0 +1,7 @@
+origin,destination,distance_nm,typical_transit_days,route_notes,vessel_restrictions,source,data_type
+NEWCASTLE_AU,PARADIP,5400,18.0,"Via Lombok/Sunda Strait, Bay of Bengal",,"Sea-distances.org, NGA Pub 151",REAL
+NEWCASTLE_AU,VIZAG,5350,17.8,Via Lombok Strait into Bay of Bengal,,"Sea-distances.org, NGA Pub 151",REAL
+NEWCASTLE_AU,HALDIA,5500,18.3,"Via Lombok Strait, Hooghly river approach",Capesize excluded (9.1m draft limit at Haldia),"Sea-distances.org, NGA Pub 151",REAL
+KALIMANTAN_ID,PARADIP,2325,7.8,"Via Malacca Strait, Bay of Bengal",,"Sea-distances.org, NGA Pub 151",REAL
+KALIMANTAN_ID,VIZAG,2225,7.4,Via Malacca Strait into Bay of Bengal,,"Sea-distances.org, NGA Pub 151",REAL
+KALIMANTAN_ID,HALDIA,2425,8.1,"Via Malacca Strait, Hooghly river approach",Capesize excluded (9.1m draft limit at Haldia),"Sea-distances.org, NGA Pub 151",REAL

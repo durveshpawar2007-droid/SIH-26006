@@ -1,0 +1,143 @@
+"""
+SIH26006 — Expected column schemas for all output datasets.
+
+Each schema is a dict of {column_name: {dtype, nullable, description, data_type}}.
+Used by validators to enforce structure and by documentation to define contracts.
+"""
+
+MARKET_DATA_SCHEMA = {
+    "date":          {"dtype": "str",   "nullable": False, "description": "Business day date (YYYY-MM-DD)"},
+    "bdi":           {"dtype": "float", "nullable": True,  "description": "Baltic Dry Index (points). Explanatory feature, NOT target."},
+    "bdry_close":    {"dtype": "float", "nullable": True,  "description": "BDRY ETF close price (USD). Charter-rate proxy signal."},
+    "bunker_vlsfo":  {"dtype": "float", "nullable": True,  "description": "VLSFO 0.5% global 20-port average (USD/MT)"},
+    "bunker_mgo":    {"dtype": "float", "nullable": True,  "description": "Marine Gas Oil global 20-port average (USD/MT)"},
+    "bunker_ifo380": {"dtype": "float", "nullable": True,  "description": "IFO 380 CST global 20-port average (USD/MT)"},
+    "usd_inr":       {"dtype": "float", "nullable": True,  "description": "USD/INR exchange rate (INR per 1 USD)"},
+    "source_bdi":    {"dtype": "str",   "nullable": True,  "description": "BDI data source identifier"},
+    "source_bunker": {"dtype": "str",   "nullable": True,  "description": "Bunker data source identifier"},
+    "source_fx":     {"dtype": "str",   "nullable": True,  "description": "FX data source identifier"},
+    "data_type":     {"dtype": "str",   "nullable": False, "description": "Provenance: REAL for all market observations"},
+}
+
+FREIGHT_ESTIMATES_SCHEMA = {
+    "date":                            {"dtype": "str",   "nullable": False, "description": "Business day date"},
+    "origin":                          {"dtype": "str",   "nullable": False, "description": "NEWCASTLE_AU or KALIMANTAN_ID"},
+    "destination":                     {"dtype": "str",   "nullable": False, "description": "PARADIP, VIZAG, or HALDIA"},
+    "vessel_type":                     {"dtype": "str",   "nullable": False, "description": "CAPESIZE or PANAMAX"},
+    "estimated_charter_rate_usd_day":  {"dtype": "float", "nullable": False, "description": "Charter rate proxy from BDRY scaling (USD/day)"},
+    "one_way_voyage_days":             {"dtype": "float", "nullable": False, "description": "One-way laden sea steaming + discharge port dwell days"},
+    "one_way_bunker_cost_usd":         {"dtype": "float", "nullable": False, "description": "Direct one-way bunker fuel expenditure (USD)"},
+    "one_way_cost_usd_mt":             {"dtype": "float", "nullable": False, "description": "Direct one-way laden trip logistics cost (USD/MT)"},
+    "commercial_voyage_days":          {"dtype": "float", "nullable": False, "description": "Commercial voyage duration including load port dwell and ballast return allocation"},
+    "commercial_bunker_cost_usd":      {"dtype": "float", "nullable": False, "description": "Commercial cycle bunker fuel expenditure including ballast leg (USD)"},
+    "estimated_spot_freight_usd_mt":   {"dtype": "float", "nullable": False, "description": "Commercial spot voyage fixture equivalent rate (USD/MT)"},
+    "estimated_freight_rate_usd_mt":   {"dtype": "float", "nullable": False, "description": "Target freight rate (USD/MT) — aligned with spot market benchmarks"},
+    "estimated_freight_rate_inr_mt":   {"dtype": "float", "nullable": False, "description": "Target freight rate converted to INR (INR/MT)"},
+    "calibration_status":              {"dtype": "str",   "nullable": False, "description": "Benchmark calibration status against public fixture data"},
+    "methodology":                     {"dtype": "str",   "nullable": False, "description": "Always SYNTHETIC_VOYAGE_ESTIMATION"},
+    "data_type":                       {"dtype": "str",   "nullable": False, "description": "Always DERIVED — never REAL"},
+}
+
+MODEL_FEATURES_SCHEMA = {
+    "date":                  {"dtype": "str",   "nullable": False, "description": "Business day date"},
+    "origin":                {"dtype": "str",   "nullable": False, "description": "Route origin"},
+    "destination":           {"dtype": "str",   "nullable": False, "description": "Route destination"},
+    "vessel_type":           {"dtype": "str",   "nullable": False, "description": "Vessel class"},
+    "freight_rate_usd_mt":   {"dtype": "float", "nullable": True,  "description": "Target variable (DERIVED via SVE)"},
+    "bdi":                   {"dtype": "float", "nullable": True,  "description": "BDI — explanatory feature only"},
+    "bdi_lag_1":             {"dtype": "float", "nullable": True,  "description": "BDI at T-1"},
+    "bdi_lag_7":             {"dtype": "float", "nullable": True,  "description": "BDI at T-7"},
+    "bdi_rolling_mean_7":    {"dtype": "float", "nullable": True,  "description": "7-day rolling mean BDI"},
+    "bdi_rolling_std_7":     {"dtype": "float", "nullable": True,  "description": "7-day rolling std dev BDI"},
+    "bdi_rolling_mean_30":   {"dtype": "float", "nullable": True,  "description": "30-day rolling mean BDI"},
+    "bunker_vlsfo":          {"dtype": "float", "nullable": True,  "description": "VLSFO price"},
+    "bunker_vlsfo_lag_1":    {"dtype": "float", "nullable": True,  "description": "VLSFO at T-1"},
+    "bunker_change_pct_7d":  {"dtype": "float", "nullable": True,  "description": "7-day VLSFO % change"},
+    "usd_inr":               {"dtype": "float", "nullable": True,  "description": "USD/INR rate"},
+    "usd_inr_lag_1":         {"dtype": "float", "nullable": True,  "description": "USD/INR at T-1"},
+    "usd_inr_change_pct_7d": {"dtype": "float", "nullable": True,  "description": "7-day FX % change"},
+    "day_of_week":           {"dtype": "int",   "nullable": True,  "description": "Day of week (Mon=0)"},
+    "month":                 {"dtype": "int",   "nullable": True,  "description": "Month (1-12)"},
+    "bdi_momentum_14d":      {"dtype": "float", "nullable": True,  "description": "14-day BDI momentum"},
+    "bunker_bdi_ratio":      {"dtype": "float", "nullable": True,  "description": "VLSFO/BDI ratio"},
+}
+
+PORT_CONSTRAINTS_SCHEMA = {
+    "port":                         {"dtype": "str",   "nullable": False, "description": "Port name"},
+    "approach_channel_depth_m":     {"dtype": "float", "nullable": False, "description": "Approach channel depth (meters)"},
+    "entrance_channel_depth_m":     {"dtype": "float", "nullable": True,  "description": "Entrance channel depth (meters)"},
+    "berth_depth_m":                {"dtype": "float", "nullable": False, "description": "Berth depth at coal berths (meters)"},
+    "max_operational_draft_m":      {"dtype": "float", "nullable": False, "description": "Maximum permitted operational draft (meters)"},
+    "max_loa_m":                    {"dtype": "float", "nullable": False, "description": "Max LOA permitted (meters)"},
+    "max_beam_m":                   {"dtype": "float", "nullable": False, "description": "Max beam permitted (meters)"},
+    "coal_berths_description":      {"dtype": "str",   "nullable": False, "description": "Description of coal handling berths"},
+    "handling_capacity_mtpa":       {"dtype": "float", "nullable": False, "description": "Rated handling capacity (MTPA)"},
+    "vessel_restrictions":          {"dtype": "str",   "nullable": False, "description": "Vessel type/size restrictions"},
+    "capesize_capable":             {"dtype": "bool",  "nullable": False, "description": "Can accept Capesize vessels"},
+    "avg_turnaround_hrs":           {"dtype": "float", "nullable": False, "description": "Average TRT (hours) — FY2024-25"},
+    "avg_preberthing_wait_hrs_low": {"dtype": "float", "nullable": False, "description": "Pre-berthing wait low estimate (hours)"},
+    "avg_preberthing_wait_hrs_high":{"dtype": "float", "nullable": False, "description": "Pre-berthing wait high estimate (hours)"},
+    "tidal_constraints":            {"dtype": "str",   "nullable": True,  "description": "Tidal/seasonal restrictions"},
+    "source":                       {"dtype": "str",   "nullable": False, "description": "Data source"},
+    "source_url":                   {"dtype": "str",   "nullable": False, "description": "Source URL for verification"},
+    "retrieval_date":               {"dtype": "str",   "nullable": False, "description": "Date values were retrieved"},
+    "data_type_infrastructure":     {"dtype": "str",   "nullable": False, "description": "Provenance tag for infrastructure values"},
+    "data_type_trt":                {"dtype": "str",   "nullable": False, "description": "Provenance tag for TRT values"},
+    "data_type_wait":               {"dtype": "str",   "nullable": False, "description": "Provenance tag for wait time estimates"},
+}
+
+VESSEL_SPECS_SCHEMA = {
+    "vessel_type":                  {"dtype": "str",   "nullable": False, "description": "CAPESIZE or PANAMAX"},
+    "variant":                      {"dtype": "str",   "nullable": False, "description": "Standard, Newcastlemax, Kamsarmax"},
+    "dwt_tonnes":                   {"dtype": "int",   "nullable": False, "description": "Representative deadweight tonnage (MT)"},
+    "dwt_min_tonnes":               {"dtype": "int",   "nullable": False, "description": "Class lower deadweight bound (MT)"},
+    "dwt_max_tonnes":               {"dtype": "int",   "nullable": False, "description": "Class upper deadweight bound (MT)"},
+    "cargo_capacity_tonnes":        {"dtype": "int",   "nullable": False, "description": "Representative coal payload (MT)"},
+    "cargo_capacity_min_tonnes":    {"dtype": "int",   "nullable": False, "description": "Minimum coal payload (MT)"},
+    "cargo_capacity_max_tonnes":    {"dtype": "int",   "nullable": False, "description": "Maximum coal payload (MT)"},
+    "typical_draft_m":              {"dtype": "float", "nullable": False, "description": "Typical laden draft (meters)"},
+    "loa_m":                        {"dtype": "float", "nullable": False, "description": "Length overall (meters)"},
+    "beam_m":                       {"dtype": "float", "nullable": False, "description": "Beam (meters)"},
+    "speed_knots":                  {"dtype": "float", "nullable": False, "description": "Economic laden speed (knots)"},
+    "speed_ballast_knots":          {"dtype": "float", "nullable": False, "description": "Economic ballast speed (knots)"},
+    "fuel_consumption_sea_mt_day":  {"dtype": "float", "nullable": False, "description": "Laden sea fuel consumption (MT VLSFO/day)"},
+    "fuel_consumption_ballast_mt_day": {"dtype": "float", "nullable": False, "description": "Ballast sea fuel consumption (MT VLSFO/day)"},
+    "fuel_consumption_port_mt_day": {"dtype": "float", "nullable": False, "description": "Port fuel consumption (MT VLSFO/day)"},
+    "fuel_type":                    {"dtype": "str",   "nullable": False, "description": "Primary fuel type"},
+    "charter_rate_low_usd_day":     {"dtype": "float", "nullable": False, "description": "Charter rate range low (USD/day)"},
+    "charter_rate_high_usd_day":    {"dtype": "float", "nullable": False, "description": "Charter rate range high (USD/day)"},
+    "charter_rate_avg_usd_day":     {"dtype": "float", "nullable": False, "description": "Charter rate average (USD/day)"},
+    "daily_opex_usd_day":           {"dtype": "float", "nullable": False, "description": "Daily vessel OPEX (USD/day)"},
+    "gear_type":                    {"dtype": "str",   "nullable": False, "description": "Loading gear type"},
+    "source":                       {"dtype": "str",   "nullable": False, "description": "Data source"},
+    "data_type_physical":           {"dtype": "str",   "nullable": False, "description": "Provenance for physical specs: REAL"},
+    "data_type_fuel":               {"dtype": "str",   "nullable": False, "description": "Provenance for fuel consumption: ESTIMATED"},
+    "data_type_charter":            {"dtype": "str",   "nullable": False, "description": "Provenance for charter rates: ESTIMATED"},
+    "data_type_opex":               {"dtype": "str",   "nullable": False, "description": "Provenance for opex: ESTIMATED"},
+}
+
+ROUTES_SCHEMA = {
+    "origin":               {"dtype": "str",   "nullable": False, "description": "Origin port/region"},
+    "destination":          {"dtype": "str",   "nullable": False, "description": "Destination port"},
+    "distance_nm":          {"dtype": "int",   "nullable": False, "description": "Distance (nautical miles)"},
+    "typical_transit_days":  {"dtype": "float", "nullable": False, "description": "Transit at 12.5 kn laden"},
+    "route_notes":          {"dtype": "str",   "nullable": True,  "description": "Routing notes"},
+    "vessel_restrictions":  {"dtype": "str",   "nullable": True,  "description": "Vessel restrictions on route"},
+    "source":               {"dtype": "str",   "nullable": False, "description": "Distance data source"},
+    "data_type":            {"dtype": "str",   "nullable": False, "description": "Provenance tag"},
+}
+
+PLANT_PARAMS_SCHEMA = {
+    "plant":                          {"dtype": "str",   "nullable": False, "description": "Plant identifier"},
+    "annual_coking_coal_mt":          {"dtype": "float", "nullable": False, "description": "Annual consumption (million MT)"},
+    "daily_consumption_mt":           {"dtype": "float", "nullable": False, "description": "Daily consumption (MT/day)"},
+    "import_share_pct":               {"dtype": "float", "nullable": False, "description": "Import share (%)"},
+    "specific_consumption_t_per_t_hm":{"dtype": "float", "nullable": False, "description": "Coking coal per tonne hot metal"},
+    "min_safe_stock_days":            {"dtype": "int",   "nullable": False, "description": "Minimum safe stock (days)"},
+    "max_storage_mt":                 {"dtype": "float", "nullable": False, "description": "Max storage capacity (MT)"},
+    "current_stockpile_mt":           {"dtype": "float", "nullable": False, "description": "Current stockpile (MT)"},
+    "preferred_port":                 {"dtype": "str",   "nullable": False, "description": "Preferred receiving port"},
+    "source":                         {"dtype": "str",   "nullable": False, "description": "Data source"},
+    "data_type_consumption":          {"dtype": "str",   "nullable": False, "description": "Provenance for consumption (ESTIMATED)"},
+    "data_type_stockpile":            {"dtype": "str",   "nullable": False, "description": "Provenance for stockpile (SCENARIO)"},
+}
