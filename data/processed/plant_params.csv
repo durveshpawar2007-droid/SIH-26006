@@ -1,4 +1,4 @@
-plant,annual_coking_coal_mt,daily_consumption_mt,import_share_pct,specific_consumption_t_per_t_hm,min_safe_stock_days,max_storage_mt,current_stockpile_mt,preferred_port,source,data_type_consumption,data_type_stockpile
-SAIL_ROURKELA,3.2,8767.0,82.0,0.8,15,300000,150000,PARADIP,SAIL Annual Report 2024-25 + Industry Benchmark (0.78-0.82 t/t HM),ESTIMATED,SCENARIO
-SAIL_BOKARO,4.0,10959.0,82.0,0.8,15,400000,200000,HALDIA,SAIL Annual Report 2024-25 + Industry Benchmark (0.78-0.82 t/t HM),ESTIMATED,SCENARIO
-RINL_VIZAG,4.0,10959.0,92.0,0.8,15,350000,175000,VIZAG,RINL Annual Report 2024-25 + Industry Benchmark (0.78-0.82 t/t HM),ESTIMATED,SCENARIO
+plant,annual_coking_coal_mt,daily_consumption_mt,import_share_pct,specific_consumption_t_per_t_hm,min_safe_stock_days,max_storage_mt,current_stockpile_mt,preferred_port,source,data_type
+SAIL_ROURKELA,3.2,8767.0,82.0,0.8,15,300000,150000,PARADIP,SAIL 2024-25,SCENARIO
+SAIL_BOKARO,4.0,10959.0,82.0,0.8,15,400000,200000,HALDIA,SAIL 2024-25,SCENARIO
+RINL_VIZAG,4.0,10959.0,92.0,0.8,15,350000,175000,VIZAG,RINL 2024-25,SCENARIO

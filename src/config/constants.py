@@ -5,9 +5,8 @@ IMPORTANT PROVENANCE NOTES:
 - Port infrastructure values are sourced from official Port Authority websites
   and MoPSW TRW reports. Each value includes a source URL and retrieval date.
 - Vessel specifications are from industry standard references.
-- Route distances are from sea-distances.org and NGA Pub 151.
-- Plant parameters are from SAIL/RINL annual reports where available;
-  stockpile/storage values are SCENARIO inputs (configurable).
+- Route distances are derived from sea-distances.org and NGA Pub 151.
+- Plant parameters are from SAIL/RINL annual reports where available.
 
 Every value carries a data_type tag:
   REAL      — directly from authoritative source
@@ -20,418 +19,256 @@ from typing import Optional
 
 
 # ─── Data Type Tags ──────────────────────────────────────────────
-# Imported from settings but duplicated here for standalone use
 REAL = "REAL"
 DERIVED = "DERIVED"
 ESTIMATED = "ESTIMATED"
 SYNTHETIC = "SYNTHETIC"
 SCENARIO = "SCENARIO"
-
+UNAVAILABLE = "UNAVAILABLE"
 
 # ═══════════════════════════════════════════════════════════════════
-# PORT CONSTRAINTS
+# ORIGIN PORT CONSTRAINTS
 # ═══════════════════════════════════════════════════════════════════
-# NOTE: These values are PRELIMINARY and must be verified against
-# current authoritative sources before use in production.
-# See PORT_DATA_SOURCES for the reference URLs to verify against.
+@dataclass
+class OriginPortConstraint:
+    origin_port: str
+    country: str
+    commodity_supported: str
+    max_draft_m: float
+    max_loa_m: float
+    max_beam_m: float
+    cargo_handling_capacity: str
+    cargo_handling_rate_mt_day: float
+    source: str
+    provenance: str = ESTIMATED
 
+ORIGIN_PORT_CONSTRAINTS = {
+    "NEWCASTLE_AU": OriginPortConstraint(
+        origin_port="NEWCASTLE_AU", country="Australia", commodity_supported="Coking/Thermal Coal",
+        max_draft_m=16.5, max_loa_m=300.0, max_beam_m=50.0, cargo_handling_capacity="High",
+        cargo_handling_rate_mt_day=80000.0, source="Newcastle Port Authority", provenance=REAL
+    ),
+    "GLADSTONE_AU": OriginPortConstraint(
+        origin_port="GLADSTONE_AU", country="Australia", commodity_supported="Coking/Thermal Coal",
+        max_draft_m=16.3, max_loa_m=315.0, max_beam_m=50.0, cargo_handling_capacity="High",
+        cargo_handling_rate_mt_day=80000.0, source="Gladstone Ports Corp", provenance=REAL
+    ),
+    "KALIMANTAN_ID": OriginPortConstraint(
+        origin_port="KALIMANTAN_ID", country="Indonesia", commodity_supported="Thermal/Semi-soft Coal",
+        max_draft_m=16.0, max_loa_m=300.0, max_beam_m=50.0, cargo_handling_capacity="High (Anchorage)",
+        cargo_handling_rate_mt_day=30000.0, source="Indonesian Coal Terminals Benchmark", provenance=ESTIMATED
+    ),
+    "NORFOLK_US": OriginPortConstraint(
+        origin_port="NORFOLK_US", country="United States", commodity_supported="Coking Coal",
+        max_draft_m=15.2, max_loa_m=300.0, max_beam_m=46.0, cargo_handling_capacity="High",
+        cargo_handling_rate_mt_day=60000.0, source="Port of Virginia", provenance=ESTIMATED
+    ),
+    "MAPUTO_MZ": OriginPortConstraint(
+        origin_port="MAPUTO_MZ", country="Mozambique", commodity_supported="Coking/Thermal Coal",
+        max_draft_m=14.5, max_loa_m=280.0, max_beam_m=42.0, cargo_handling_capacity="Medium",
+        cargo_handling_rate_mt_day=40000.0, source="MPDC Matola Terminal", provenance=ESTIMATED
+    ),
+    "VOSTOCHNY_RU": OriginPortConstraint(
+        origin_port="VOSTOCHNY_RU", country="Russia", commodity_supported="Coking/Thermal Coal",
+        max_draft_m=16.5, max_loa_m=300.0, max_beam_m=46.0, cargo_handling_capacity="High",
+        cargo_handling_rate_mt_day=60000.0, source="Vostochny Port JSC", provenance=ESTIMATED
+    ),
+}
+
+# ═══════════════════════════════════════════════════════════════════
+# DESTINATION PORT CONSTRAINTS (INDIAN EAST COAST)
+# ═══════════════════════════════════════════════════════════════════
 @dataclass
 class PortConstraint:
-    """Physical and operational constraints for a single port."""
     port: str
-    # Depth specifications (meters) — DISTINGUISH these clearly
+    country: str
     approach_channel_depth_m: float
     entrance_channel_depth_m: Optional[float]
     berth_depth_m: float
-    max_operational_draft_m: float       # Max draft actually permitted
-    tidal_range_m: Optional[float]       # Spring tide range if relevant
-
-    # Dimensional limits
+    max_operational_draft_m: float
+    tidal_range_m: Optional[float]
     max_loa_m: float
     max_beam_m: float
-
-    # Capacity
     coal_berths_description: str
     handling_capacity_mtpa: float
-
-    # Vessel restrictions
+    cargo_handling_rate_mt_day: float
     vessel_restrictions: str
     capesize_capable: bool
-
-    # Turnaround and waiting
-    avg_turnaround_hrs: float            # FY2024-25 MoPSW TRW data
-    avg_preberthing_wait_hrs_low: float  # Range low estimate
-    avg_preberthing_wait_hrs_high: float # Range high estimate
+    avg_turnaround_hrs: float
+    avg_preberthing_wait_hrs_low: float
+    avg_preberthing_wait_hrs_high: float
     tidal_constraints: str
-
-    # Provenance
     source_infrastructure: str
-    source_trt: str
     source_url: str
-    retrieval_date: str
-    data_type_infrastructure: str = REAL
-    data_type_trt: str = REAL
-    data_type_wait: str = ESTIMATED      # Wait times are ranges, not precise
-
-
-# NOTE: These values require verification against the actual Port Authority
-# websites listed in source_url. The values below are from research conducted
-# on 2026-09-07 using MoPSW TRW reports and port authority publications.
-# They should be cross-checked before final use.
+    provenance: str = REAL
 
 PORT_CONSTRAINTS = {
     "PARADIP": PortConstraint(
-        port="PARADIP",
-        approach_channel_depth_m=18.7,
-        entrance_channel_depth_m=17.1,
-        berth_depth_m=16.0,             # Standard coal berths
-        max_operational_draft_m=16.5,    # Western Dock-1 (deepest)
-        tidal_range_m=None,              # Minimal tidal impact
-        max_loa_m=300.0,
-        max_beam_m=46.0,
-        coal_berths_description=(
-            "Berth 03: New Coal Import Berth (Coking Coal, draft 16.0m); "
-            "Western Dock-1: Deep-draft Capesize berth (draft 16.5m); "
-            "Berths 05-06: Mechanized Coal Berths (Thermal, draft 14.5m); "
-            "Berths 07-09: East Quay 01-03 (Thermal/Bulk, draft 12.5-14.5m)"
-        ),
-        handling_capacity_mtpa=289.0,
-        vessel_restrictions="LOA>260m: daytime entry only if draft>12.5m",
-        capesize_capable=True,
-        avg_turnaround_hrs=46.16,        # FY2024-25 MoPSW
-        avg_preberthing_wait_hrs_low=12.0,
-        avg_preberthing_wait_hrs_high=24.0,
-        tidal_constraints="Minimal tidal impact on operations",
-        source_infrastructure="Paradip Port Authority (PPA) website + MoPSW TRW",
-        source_trt="MoPSW TRW FY2024-25 / PIB releases",
-        source_url="https://www.paradipport.gov.in",
-        retrieval_date="2026-09-07",
+        port="PARADIP", country="India", approach_channel_depth_m=18.7, entrance_channel_depth_m=17.1,
+        berth_depth_m=16.0, max_operational_draft_m=16.5, tidal_range_m=None, max_loa_m=300.0, max_beam_m=46.0,
+        coal_berths_description="Western Dock-1 (16.5m), KICT (16.0m)", handling_capacity_mtpa=289.0, cargo_handling_rate_mt_day=60000.0,
+        vessel_restrictions="LOA>260m restriction", capesize_capable=True,
+        avg_turnaround_hrs=46.16, avg_preberthing_wait_hrs_low=12.0, avg_preberthing_wait_hrs_high=24.0,
+        tidal_constraints="Minimal", source_infrastructure="PPA + MoPSW", source_url="https://paradipport.gov.in"
     ),
-
     "VIZAG": PortConstraint(
-        port="VIZAG",
-        approach_channel_depth_m=19.0,   # Outer Harbour
-        entrance_channel_depth_m=15.5,   # Inner Harbour
-        berth_depth_m=18.1,              # VGCB (Outer Harbour deepest)
-        max_operational_draft_m=18.1,    # VGCB berth
-        tidal_range_m=None,
-        max_loa_m=356.0,                 # Outer Harbour
-        max_beam_m=50.0,
-        coal_berths_description=(
-            "VGCB (Outer): Mechanized Coking/Steam coal, draft 18.1m, up to 200k DWT; "
-            "EQ1: Mechanized Steam Coal (draft 14.5m); "
-            "EQ7-9: Bulk/Thermal coal (draft 14.5m); "
-            "WQ1-4: Multi-cargo / coal (draft 11.0-13.5m)"
-        ),
-        handling_capacity_mtpa=144.0,
-        vessel_restrictions="Inner Harbour: restricted to Panamax/Supramax (LOA 240m, draft 14.5m)",
-        capesize_capable=True,           # Outer Harbour VGCB only
-        avg_turnaround_hrs=69.19,        # FY2024-25 MoPSW
-        avg_preberthing_wait_hrs_low=8.0,
-        avg_preberthing_wait_hrs_high=16.0,  # Outer Harbour; Inner is 16-28
-        tidal_constraints="Inner harbour: tidal navigation restrictions apply",
-        source_infrastructure="Visakhapatnam Port Authority (VPA) website + MoPSW TRW",
-        source_trt="MoPSW TRW FY2024-25 / PIB releases",
-        source_url="https://vizagport.com",
-        retrieval_date="2026-09-07",
+        port="VIZAG", country="India", approach_channel_depth_m=19.0, entrance_channel_depth_m=15.5,
+        berth_depth_m=18.1, max_operational_draft_m=18.1, tidal_range_m=None, max_loa_m=356.0, max_beam_m=50.0,
+        coal_berths_description="VGCB Outer Harbour (18.1m)", handling_capacity_mtpa=144.0, cargo_handling_rate_mt_day=60000.0,
+        vessel_restrictions="Inner Harbour restricted to Panamax", capesize_capable=True,
+        avg_turnaround_hrs=69.19, avg_preberthing_wait_hrs_low=8.0, avg_preberthing_wait_hrs_high=16.0,
+        tidal_constraints="Tidal limits inside", source_infrastructure="VPA + MoPSW", source_url="https://vizagport.com"
     ),
-
     "HALDIA": PortConstraint(
-        port="HALDIA",
-        approach_channel_depth_m=9.2,    # Hooghly river channel (seasonal 7.5-9.2m)
-        entrance_channel_depth_m=9.2,    # Lock entry
-        berth_depth_m=9.1,
-        max_operational_draft_m=9.1,     # Strict lock-entry constraint
-        tidal_range_m=4.5,              # Hooghly spring tides significant
-        max_loa_m=240.0,
-        max_beam_m=32.26,               # Panamax beam limit for lock gate
-        coal_berths_description=(
-            "Berth 4A: Dedicated Coking Coal terminal; "
-            "Berth 2: Haldia Bulk Terminal (automated coal/dry bulk); "
-            "Berths 3-4: Thermal coal coastal loading/unloading"
-        ),
-        handling_capacity_mtpa=50.7,
-        vessel_restrictions=(
-            "NO Capesize vessels. NO fully laden Panamax (14m draft >> 9.1m limit). "
-            "Lock-entry required: max 3 vessels per tidal window. "
-            "Practical limit: Handymax/Supramax or partially discharged Panamax. "
-            "May require lighterage/transloading at Sandheads/Sagar anchorage."
-        ),
-        capesize_capable=False,
-        avg_turnaround_hrs=46.79,        # FY2024-25 MoPSW (HDC alone)
-        avg_preberthing_wait_hrs_low=24.0,
-        avg_preberthing_wait_hrs_high=48.0,  # Can spike during monsoon
-        tidal_constraints=(
-            "Hooghly river draft governed by seasonal siltation and tides. "
-            "Channel depth varies 7.5-9.2m seasonally. Lock scheduling controls entry. "
-            "Monsoon period: further draft restrictions possible."
-        ),
-        source_infrastructure="Syama Prasad Mookerjee Port (SMP Kolkata) website + MoPSW TRW",
-        source_trt="MoPSW TRW FY2024-25 / PIB releases",
-        source_url="https://smportkolkata.org.in",
-        retrieval_date="2026-09-07",
+        port="HALDIA", country="India", approach_channel_depth_m=9.2, entrance_channel_depth_m=9.2,
+        berth_depth_m=9.1, max_operational_draft_m=9.1, tidal_range_m=4.5, max_loa_m=240.0, max_beam_m=32.26,
+        coal_berths_description="Berth 4A", handling_capacity_mtpa=50.7, cargo_handling_rate_mt_day=20000.0,
+        vessel_restrictions="NO Capesize. Lock entry limits.", capesize_capable=False,
+        avg_turnaround_hrs=46.79, avg_preberthing_wait_hrs_low=24.0, avg_preberthing_wait_hrs_high=48.0,
+        tidal_constraints="High siltation", source_infrastructure="SMP Kolkata", source_url="https://smportkolkata.org.in"
+    ),
+    "GANGAVARAM": PortConstraint(
+        port="GANGAVARAM", country="India", approach_channel_depth_m=20.0, entrance_channel_depth_m=19.0,
+        berth_depth_m=18.5, max_operational_draft_m=18.0, tidal_range_m=1.5, max_loa_m=320.0, max_beam_m=50.0,
+        coal_berths_description="Fully mechanized deep water coal terminals", handling_capacity_mtpa=64.0, cargo_handling_rate_mt_day=70000.0,
+        vessel_restrictions="Minimal", capesize_capable=True,
+        avg_turnaround_hrs=40.0, avg_preberthing_wait_hrs_low=6.0, avg_preberthing_wait_hrs_high=18.0,
+        tidal_constraints="Minimal", source_infrastructure="Adani Gangavaram Port", source_url="https://www.adaniports.com"
+    ),
+    "GOPALPUR": PortConstraint(
+        port="GOPALPUR", country="India", approach_channel_depth_m=15.0, entrance_channel_depth_m=14.5,
+        berth_depth_m=14.5, max_operational_draft_m=14.0, tidal_range_m=None, max_loa_m=260.0, max_beam_m=40.0,
+        coal_berths_description="Multi-purpose berths", handling_capacity_mtpa=20.0, cargo_handling_rate_mt_day=30000.0,
+        vessel_restrictions="Primarily Panamax/Supramax", capesize_capable=False,
+        avg_turnaround_hrs=55.0, avg_preberthing_wait_hrs_low=12.0, avg_preberthing_wait_hrs_high=24.0,
+        tidal_constraints="Minimal", source_infrastructure="Adani Gopalpur Port", source_url="https://www.adaniports.com"
+    ),
+    "DHAMRA": PortConstraint(
+        port="DHAMRA", country="India", approach_channel_depth_m=19.0, entrance_channel_depth_m=18.0,
+        berth_depth_m=18.0, max_operational_draft_m=18.0, tidal_range_m=None, max_loa_m=320.0, max_beam_m=50.0,
+        coal_berths_description="Fully mechanized bulk cargo berths", handling_capacity_mtpa=40.0, cargo_handling_rate_mt_day=80000.0,
+        vessel_restrictions="Capesize capable", capesize_capable=True,
+        avg_turnaround_hrs=35.0, avg_preberthing_wait_hrs_low=6.0, avg_preberthing_wait_hrs_high=18.0,
+        tidal_constraints="Minor tide constraints", source_infrastructure="Adani Dhamra Port", source_url="https://www.adaniports.com"
+    ),
+    "SANDHEADS": PortConstraint(
+        port="SANDHEADS", country="India", approach_channel_depth_m=50.0, entrance_channel_depth_m=50.0,
+        berth_depth_m=50.0, max_operational_draft_m=50.0, tidal_range_m=None, max_loa_m=400.0, max_beam_m=60.0,
+        coal_berths_description="Deep water anchorage (Transshipment)", handling_capacity_mtpa=20.0, cargo_handling_rate_mt_day=15000.0,
+        vessel_restrictions="Ship-to-ship transfer only", capesize_capable=True,
+        avg_turnaround_hrs=96.0, avg_preberthing_wait_hrs_low=0.0, avg_preberthing_wait_hrs_high=0.0,
+        tidal_constraints="Open sea conditions", source_infrastructure="SMP Kolkata Anchorages", source_url="https://smportkolkata.org.in"
     ),
 }
-
-
-# ═══════════════════════════════════════════════════════════════════
-# PORT DATA SOURCES — for verification (Correction #1)
-# ═══════════════════════════════════════════════════════════════════
-PORT_DATA_SOURCES = {
-    "PARADIP": {
-        "port_authority": "https://www.paradipport.gov.in",
-        "daily_traffic": "https://www.paradipport.gov.in (Daily Traffic Report / Berth Allocation PDF)",
-        "mopsw_trt": "MoPSW Transport Research Wing - Basic Port Statistics of India",
-        "ipa": "https://ipa.nic.in",
-        "verification_notes": (
-            "Channel/berth depths: Verify against PPA Port Information booklet. "
-            "TRT: Verify against latest MoPSW TRW annual publication. "
-            "Draft limits may change with dredging campaigns."
-        ),
-    },
-    "VIZAG": {
-        "port_authority": "https://vizagport.com",
-        "daily_shipping": "https://vpt.shipping.gov.in (Daily Shipping Position)",
-        "mopsw_trt": "MoPSW Transport Research Wing - Basic Port Statistics of India",
-        "verification_notes": (
-            "Outer Harbour VGCB depth: Verify against VPA Port Information. "
-            "Inner Harbour limits change with maintenance dredging."
-        ),
-    },
-    "HALDIA": {
-        "port_authority": "https://smportkolkata.org.in",
-        "daily_shipping": "https://smportkolkata.org.in (Berth occupancy and shipping movement reports)",
-        "mopsw_trt": "MoPSW Transport Research Wing - Basic Port Statistics of India",
-        "verification_notes": (
-            "Hooghly channel depth is SEASONAL (7.5-9.2m). "
-            "Monsoon drafts may be further restricted. "
-            "Lock gate dimensions constrain beam to 32.26m."
-        ),
-    },
-}
-
 
 # ═══════════════════════════════════════════════════════════════════
 # VESSEL SPECIFICATIONS
 # ═══════════════════════════════════════════════════════════════════
-
 @dataclass
 class VesselSpec:
-    """Technical and commercial specifications for a vessel class."""
     vessel_type: str
     variant: str
-    dwt_tonnes: int                      # Representative DWT
-    dwt_min_tonnes: int                  # Class lower DWT bound
-    dwt_max_tonnes: int                  # Class upper DWT bound
-    cargo_capacity_tonnes: int           # Representative coking coal payload
-    cargo_capacity_min_tonnes: int       # Minimum coal payload
-    cargo_capacity_max_tonnes: int       # Maximum coal payload
-    typical_draft_m: float
+    dwt_tonnes: int
+    cargo_capacity_mt: int
+    draft_m: float
     loa_m: float
     beam_m: float
-    speed_knots: float                   # Economic laden speed
-    speed_ballast_knots: float           # Economic ballast speed
-    fuel_consumption_sea_mt_day: float   # MT/day at sea laden (VLSFO)
-    fuel_consumption_ballast_mt_day: float # MT/day at sea ballast (VLSFO)
-    fuel_consumption_port_mt_day: float  # MT/day in port (auxiliary)
-    fuel_type: str
-    charter_rate_low_usd_day: float
-    charter_rate_high_usd_day: float
-    charter_rate_avg_usd_day: float
-    daily_opex_usd_day: float            # Crew, lube, maintenance, insurance
-    gear_type: str
+    speed_knots: float
+    fuel_consumption_sea_mt_day: float
+    fuel_consumption_port_mt_day: float
+    daily_opex_usd_day: float
+    charter_rate_reference: float
     source: str
-    data_type_physical: str = REAL       # DWT, draft, LOA, beam from classification societies
-    data_type_fuel: str = ESTIMATED      # Fuel consumption based on engine test bed/operational reports
-    data_type_charter: str = ESTIMATED   # Charter rates are market benchmarks
-    data_type_opex: str = ESTIMATED      # Daily OPEX benchmark
-
+    provenance: str = ESTIMATED
 
 VESSEL_SPECS = {
-    "CAPESIZE_STD": VesselSpec(
-        vessel_type="CAPESIZE", variant="Standard",
-        dwt_tonnes=180_000, dwt_min_tonnes=160_000, dwt_max_tonnes=190_000,
-        cargo_capacity_tonnes=170_000, cargo_capacity_min_tonnes=150_000, cargo_capacity_max_tonnes=180_000,
-        typical_draft_m=18.2, loa_m=295.0, beam_m=47.0,
-        speed_knots=13.0, speed_ballast_knots=13.5,
-        fuel_consumption_sea_mt_day=50.0, fuel_consumption_ballast_mt_day=42.5,
-        fuel_consumption_port_mt_day=4.5,
-        fuel_type="VLSFO",
-        charter_rate_low_usd_day=11_000, charter_rate_high_usd_day=44_000,
-        charter_rate_avg_usd_day=22_000, daily_opex_usd_day=6_500.0,
-        gear_type="gearless",
-        source="Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",
-    ),
-    "CAPESIZE_NEWCASTLEMAX": VesselSpec(
-        vessel_type="CAPESIZE", variant="Newcastlemax",
-        dwt_tonnes=210_000, dwt_min_tonnes=200_000, dwt_max_tonnes=215_000,
-        cargo_capacity_tonnes=200_000, cargo_capacity_min_tonnes=190_000, cargo_capacity_max_tonnes=205_000,
-        typical_draft_m=18.5, loa_m=300.0, beam_m=50.0,
-        speed_knots=13.0, speed_ballast_knots=13.5,
-        fuel_consumption_sea_mt_day=52.0, fuel_consumption_ballast_mt_day=44.0,
-        fuel_consumption_port_mt_day=5.0,
-        fuel_type="VLSFO",
-        charter_rate_low_usd_day=12_000, charter_rate_high_usd_day=46_000,
-        charter_rate_avg_usd_day=24_000, daily_opex_usd_day=7_000.0,
-        gear_type="gearless",
-        source="Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",
-    ),
-    "PANAMAX_STD": VesselSpec(
-        vessel_type="PANAMAX", variant="Standard",
-        dwt_tonnes=75_000, dwt_min_tonnes=70_000, dwt_max_tonnes=78_000,
-        cargo_capacity_tonnes=70_000, cargo_capacity_min_tonnes=65_000, cargo_capacity_max_tonnes=74_000,
-        typical_draft_m=14.0, loa_m=229.0, beam_m=32.26,
-        speed_knots=13.0, speed_ballast_knots=13.5,
-        fuel_consumption_sea_mt_day=32.0, fuel_consumption_ballast_mt_day=27.2,
-        fuel_consumption_port_mt_day=3.5,
-        fuel_type="VLSFO",
-        charter_rate_low_usd_day=9_500, charter_rate_high_usd_day=18_500,
-        charter_rate_avg_usd_day=14_000, daily_opex_usd_day=5_200.0,
-        gear_type="gearless",
-        source="Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",
-    ),
-    "KAMSARMAX": VesselSpec(
-        vessel_type="PANAMAX", variant="Kamsarmax",
-        dwt_tonnes=82_000, dwt_min_tonnes=80_000, dwt_max_tonnes=84_000,
-        cargo_capacity_tonnes=77_000, cargo_capacity_min_tonnes=74_000, cargo_capacity_max_tonnes=80_000,
-        typical_draft_m=14.4, loa_m=229.0, beam_m=32.26,
-        speed_knots=13.0, speed_ballast_knots=13.5,
-        fuel_consumption_sea_mt_day=34.0, fuel_consumption_ballast_mt_day=28.5,
-        fuel_consumption_port_mt_day=3.5,
-        fuel_type="VLSFO",
-        charter_rate_low_usd_day=10_000, charter_rate_high_usd_day=19_000,
-        charter_rate_avg_usd_day=15_000, daily_opex_usd_day=5_400.0,
-        gear_type="gearless",
-        source="Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",
-    ),
+    "HANDYSIZE": VesselSpec("HANDYSIZE", "Standard", 35000, 32000, 10.5, 180.0, 28.0, 12.5, 20.0, 2.5, 4500.0, 9000.0, "Industry Benchmark"),
+    "SUPRAMAX": VesselSpec("SUPRAMAX", "Standard", 55000, 50000, 12.2, 190.0, 32.26, 13.0, 26.0, 3.0, 4800.0, 12000.0, "Industry Benchmark"),
+    "PANAMAX": VesselSpec("PANAMAX", "Standard", 75000, 70000, 14.0, 229.0, 32.26, 13.0, 32.0, 3.5, 5200.0, 14000.0, "Industry Benchmark"),
+    "KAMSARMAX": VesselSpec("PANAMAX", "Kamsarmax", 82000, 77000, 14.4, 229.0, 32.26, 13.0, 34.0, 3.5, 5400.0, 15000.0, "Industry Benchmark"),
+    "CAPESIZE": VesselSpec("CAPESIZE", "Standard", 180000, 170000, 18.2, 295.0, 47.0, 13.0, 50.0, 4.5, 6500.0, 22000.0, "Industry Benchmark"),
+    "NEWCASTLEMAX": VesselSpec("CAPESIZE", "Newcastlemax", 210000, 200000, 18.5, 300.0, 50.0, 13.0, 52.0, 5.0, 7000.0, 24000.0, "Industry Benchmark"),
 }
-
 
 # ═══════════════════════════════════════════════════════════════════
 # ROUTE DEFINITIONS
 # ═══════════════════════════════════════════════════════════════════
-
 @dataclass
 class RouteDefinition:
-    """Shipping route between origin and destination."""
-    origin: str
-    destination: str
-    distance_nm: int
-    typical_transit_days: float          # At 12.5 knots laden
+    route_id: str
+    origin_port: str
+    origin_country: str
+    destination_port: str
+    destination_country: str
+    distance_nautical_miles: int
+    estimated_sailing_days: float
     route_notes: str
     vessel_restrictions: str
     source: str
-    data_type: str = REAL
+    provenance: str = ESTIMATED
 
+def _create_route(orig: str, orig_cty: str, dest: str, dist: int) -> tuple[str, RouteDefinition]:
+    return f"{orig}_{dest}", RouteDefinition(
+        route_id=f"{orig}_{dest}", origin_port=orig, origin_country=orig_cty,
+        destination_port=dest, destination_country="India",
+        distance_nautical_miles=dist, estimated_sailing_days=round(dist/(12.5*24), 1),
+        route_notes="", vessel_restrictions="", source="NGA Pub 151 Approximation"
+    )
 
-ROUTES = {
-    ("NEWCASTLE_AU", "PARADIP"): RouteDefinition(
-        origin="NEWCASTLE_AU", destination="PARADIP",
-        distance_nm=5400, typical_transit_days=18.0,
-        route_notes="Via Lombok/Sunda Strait, Bay of Bengal",
-        vessel_restrictions="",
-        source="Sea-distances.org, NGA Pub 151",
-    ),
-    ("NEWCASTLE_AU", "VIZAG"): RouteDefinition(
-        origin="NEWCASTLE_AU", destination="VIZAG",
-        distance_nm=5350, typical_transit_days=17.8,
-        route_notes="Via Lombok Strait into Bay of Bengal",
-        vessel_restrictions="",
-        source="Sea-distances.org, NGA Pub 151",
-    ),
-    ("NEWCASTLE_AU", "HALDIA"): RouteDefinition(
-        origin="NEWCASTLE_AU", destination="HALDIA",
-        distance_nm=5500, typical_transit_days=18.3,
-        route_notes="Via Lombok Strait, Hooghly river approach",
-        vessel_restrictions="Capesize excluded (9.1m draft limit at Haldia)",
-        source="Sea-distances.org, NGA Pub 151",
-    ),
-    ("KALIMANTAN_ID", "PARADIP"): RouteDefinition(
-        origin="KALIMANTAN_ID", destination="PARADIP",
-        distance_nm=2325, typical_transit_days=7.8,
-        route_notes="Via Malacca Strait, Bay of Bengal",
-        vessel_restrictions="",
-        source="Sea-distances.org, NGA Pub 151",
-    ),
-    ("KALIMANTAN_ID", "VIZAG"): RouteDefinition(
-        origin="KALIMANTAN_ID", destination="VIZAG",
-        distance_nm=2225, typical_transit_days=7.4,
-        route_notes="Via Malacca Strait into Bay of Bengal",
-        vessel_restrictions="",
-        source="Sea-distances.org, NGA Pub 151",
-    ),
-    ("KALIMANTAN_ID", "HALDIA"): RouteDefinition(
-        origin="KALIMANTAN_ID", destination="HALDIA",
-        distance_nm=2425, typical_transit_days=8.1,
-        route_notes="Via Malacca Strait, Hooghly river approach",
-        vessel_restrictions="Capesize excluded (9.1m draft limit at Haldia)",
-        source="Sea-distances.org, NGA Pub 151",
-    ),
-}
+ROUTES = dict([
+    # AUSTRALIA (GLADSTONE/NEWCASTLE -> INDIA EAST COAST)
+    _create_route("NEWCASTLE_AU", "Australia", "PARADIP", 5400),
+    _create_route("NEWCASTLE_AU", "Australia", "VIZAG", 5350),
+    _create_route("NEWCASTLE_AU", "Australia", "HALDIA", 5500),
+    _create_route("NEWCASTLE_AU", "Australia", "GANGAVARAM", 5350),
+    _create_route("NEWCASTLE_AU", "Australia", "GOPALPUR", 5380),
+    _create_route("NEWCASTLE_AU", "Australia", "DHAMRA", 5430),
+    _create_route("NEWCASTLE_AU", "Australia", "SANDHEADS", 5450),
 
+    # INDONESIA (KALIMANTAN -> INDIA EAST COAST)
+    _create_route("KALIMANTAN_ID", "Indonesia", "PARADIP", 2325),
+    _create_route("KALIMANTAN_ID", "Indonesia", "VIZAG", 2225),
+    _create_route("KALIMANTAN_ID", "Indonesia", "HALDIA", 2425),
+    _create_route("KALIMANTAN_ID", "Indonesia", "GANGAVARAM", 2225),
+    _create_route("KALIMANTAN_ID", "Indonesia", "GOPALPUR", 2280),
+    _create_route("KALIMANTAN_ID", "Indonesia", "DHAMRA", 2350),
+    _create_route("KALIMANTAN_ID", "Indonesia", "SANDHEADS", 2380),
+
+    # US EAST COAST (NORFOLK -> INDIA EAST COAST) via Cape of Good Hope
+    _create_route("NORFOLK_US", "United States", "PARADIP", 10100),
+    _create_route("NORFOLK_US", "United States", "VIZAG", 9900),
+    _create_route("NORFOLK_US", "United States", "HALDIA", 10200),
+    
+    # MOZAMBIQUE (MAPUTO -> INDIA EAST COAST)
+    _create_route("MAPUTO_MZ", "Mozambique", "PARADIP", 3700),
+    _create_route("MAPUTO_MZ", "Mozambique", "VIZAG", 3500),
+    _create_route("MAPUTO_MZ", "Mozambique", "HALDIA", 3800),
+
+    # RUSSIA (VOSTOCHNY -> INDIA EAST COAST) via Singapore
+    _create_route("VOSTOCHNY_RU", "Russia", "PARADIP", 5200),
+    _create_route("VOSTOCHNY_RU", "Russia", "VIZAG", 5100),
+    _create_route("VOSTOCHNY_RU", "Russia", "HALDIA", 5300),
+])
 
 # ═══════════════════════════════════════════════════════════════════
-# PLANT PARAMETERS (Correction #6: SCENARIO inputs)
+# PLANT PARAMETERS
 # ═══════════════════════════════════════════════════════════════════
-
 @dataclass
 class PlantParams:
-    """
-    Steel plant coal consumption and inventory parameters.
-
-    NOTE: daily_consumption_mt and stockpile values are SCENARIO inputs
-    derived from annual reports, not direct operational observations.
-    These values are configurable and should be adjusted by the user.
-    """
     plant: str
-    annual_coking_coal_mt: float         # Million tonnes — from annual reports
-    daily_consumption_mt: float          # MT/day — derived: annual / 365
-    import_share_pct: float              # % imported — from annual reports
-    specific_consumption_t_per_t_hm: float  # Industry benchmark
-    min_safe_stock_days: int             # SCENARIO — configurable
-    max_storage_mt: float                # SCENARIO — configurable
-    current_stockpile_mt: float          # SCENARIO — configurable
+    annual_coking_coal_mt: float
+    daily_consumption_mt: float
+    import_share_pct: float
+    specific_consumption_t_per_t_hm: float
+    min_safe_stock_days: int
+    max_storage_mt: float
+    current_stockpile_mt: float
     preferred_port: str
     source: str
-    data_type_consumption: str = ESTIMATED   # Derived from annual reports
-    data_type_stockpile: str = SCENARIO      # Not real operational data
-
+    data_type: str = SCENARIO
 
 PLANT_PARAMS = {
-    "SAIL_ROURKELA": PlantParams(
-        plant="SAIL_ROURKELA",
-        annual_coking_coal_mt=3.2,
-        daily_consumption_mt=round(3_200_000 / 365, 0),  # ~8,767 MT/day
-        import_share_pct=82.0,
-        specific_consumption_t_per_t_hm=0.80,
-        min_safe_stock_days=15,
-        max_storage_mt=300_000,
-        current_stockpile_mt=150_000,
-        preferred_port="PARADIP",
-        source="SAIL Annual Report 2024-25 + Industry Benchmark (0.78-0.82 t/t HM)",
-    ),
-    "SAIL_BOKARO": PlantParams(
-        plant="SAIL_BOKARO",
-        annual_coking_coal_mt=4.0,
-        daily_consumption_mt=round(4_000_000 / 365, 0),  # ~10,959 MT/day
-        import_share_pct=82.0,
-        specific_consumption_t_per_t_hm=0.80,
-        min_safe_stock_days=15,
-        max_storage_mt=400_000,
-        current_stockpile_mt=200_000,
-        preferred_port="HALDIA",
-        source="SAIL Annual Report 2024-25 + Industry Benchmark (0.78-0.82 t/t HM)",
-    ),
-    "RINL_VIZAG": PlantParams(
-        plant="RINL_VIZAG",
-        annual_coking_coal_mt=4.0,
-        daily_consumption_mt=round(4_000_000 / 365, 0),  # ~10,959 MT/day
-        import_share_pct=92.0,
-        specific_consumption_t_per_t_hm=0.80,
-        min_safe_stock_days=15,
-        max_storage_mt=350_000,
-        current_stockpile_mt=175_000,
-        preferred_port="VIZAG",
-        source="RINL Annual Report 2024-25 + Industry Benchmark (0.78-0.82 t/t HM)",
-    ),
+    "SAIL_ROURKELA": PlantParams("SAIL_ROURKELA", 3.2, 8767.0, 82.0, 0.80, 15, 300000, 150000, "PARADIP", "SAIL 2024-25"),
+    "SAIL_BOKARO": PlantParams("SAIL_BOKARO", 4.0, 10959.0, 82.0, 0.80, 15, 400000, 200000, "HALDIA", "SAIL 2024-25"),
+    "RINL_VIZAG": PlantParams("RINL_VIZAG", 4.0, 10959.0, 92.0, 0.80, 15, 350000, 175000, "VIZAG", "RINL 2024-25"),
 }

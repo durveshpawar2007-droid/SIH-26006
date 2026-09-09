@@ -955,8 +955,9 @@ date,bdi,bdry_close,source_bdi,bunker_vlsfo,bunker_mgo,bunker_ifo380,source_bunk
 2026-08-26,,15.0600004196167,Investing.com_Manual,794.5,1341.0,625.0,USDA_AgTransport_ShipAndBunker,95.43,FRED_DEXINUS,REAL
 2026-08-27,,14.81999969482422,Investing.com_Manual,791.5,1342.0,625.0,USDA_AgTransport_ShipAndBunker,95.54,FRED_DEXINUS,REAL
 2026-08-28,,15.520000457763672,Investing.com_Manual,799.0,1354.5,628.0,USDA_AgTransport_ShipAndBunker,95.38,FRED_DEXINUS,REAL
-2026-08-31,,15.470000267028809,Investing.com_Manual,810.5,1378.0,635.0,USDA_AgTransport_ShipAndBunker,,,REAL
-2026-09-01,,15.795000076293944,Investing.com_Manual,821.5,1411.5,648.0,USDA_AgTransport_ShipAndBunker,,,REAL
-2026-09-02,,16.579999923706055,Investing.com_Manual,840.0,1444.5,656.0,USDA_AgTransport_ShipAndBunker,,,REAL
-2026-09-03,,16.139999389648438,Investing.com_Manual,,,,,,,REAL
-2026-09-04,,16.559999465942383,Investing.com_Manual,,,,,,,REAL
+2026-08-31,,15.470000267028809,Investing.com_Manual,810.5,1378.0,635.0,USDA_AgTransport_ShipAndBunker,95.16,FRED_DEXINUS,REAL
+2026-09-01,,15.795000076293944,Investing.com_Manual,821.5,1411.5,648.0,USDA_AgTransport_ShipAndBunker,94.95,FRED_DEXINUS,REAL
+2026-09-02,,16.579999923706055,Investing.com_Manual,840.0,1444.5,656.0,USDA_AgTransport_ShipAndBunker,94.97,FRED_DEXINUS,REAL
+2026-09-03,,16.139999389648438,Investing.com_Manual,,,,,94.49,FRED_DEXINUS,REAL
+2026-09-04,,16.559999465942383,Investing.com_Manual,,,,,94.49,FRED_DEXINUS,REAL
+2026-09-08,,16.299999237060547,Investing.com_Manual,,,,,,,REAL

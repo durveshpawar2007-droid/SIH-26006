@@ -1,5 +1,7 @@
-vessel_type,variant,dwt_tonnes,dwt_min_tonnes,dwt_max_tonnes,cargo_capacity_tonnes,cargo_capacity_min_tonnes,cargo_capacity_max_tonnes,typical_draft_m,loa_m,beam_m,speed_knots,speed_ballast_knots,fuel_consumption_sea_mt_day,fuel_consumption_ballast_mt_day,fuel_consumption_port_mt_day,fuel_type,charter_rate_low_usd_day,charter_rate_high_usd_day,charter_rate_avg_usd_day,daily_opex_usd_day,gear_type,source,data_type_physical,data_type_fuel,data_type_charter,data_type_opex
-CAPESIZE,Standard,180000,160000,190000,170000,150000,180000,18.2,295.0,47.0,13.0,13.5,50.0,42.5,4.5,VLSFO,11000,44000,22000,6500.0,gearless,"Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",REAL,ESTIMATED,ESTIMATED,ESTIMATED
-CAPESIZE,Newcastlemax,210000,200000,215000,200000,190000,205000,18.5,300.0,50.0,13.0,13.5,52.0,44.0,5.0,VLSFO,12000,46000,24000,7000.0,gearless,"Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",REAL,ESTIMATED,ESTIMATED,ESTIMATED
-PANAMAX,Standard,75000,70000,78000,70000,65000,74000,14.0,229.0,32.26,13.0,13.5,32.0,27.2,3.5,VLSFO,9500,18500,14000,5200.0,gearless,"Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",REAL,ESTIMATED,ESTIMATED,ESTIMATED
-PANAMAX,Kamsarmax,82000,80000,84000,77000,74000,80000,14.4,229.0,32.26,13.0,13.5,34.0,28.5,3.5,VLSFO,10000,19000,15000,5400.0,gearless,"Industry references (MarineInsight, UNCTAD RMT, Equasis, Moore Maritime OPEX)",REAL,ESTIMATED,ESTIMATED,ESTIMATED
+vessel_type,variant,dwt_tonnes,cargo_capacity_mt,draft_m,loa_m,beam_m,speed_knots,fuel_consumption_sea_mt_day,fuel_consumption_port_mt_day,daily_opex_usd_day,charter_rate_reference,source,provenance
+HANDYSIZE,Standard,35000,32000,10.5,180.0,28.0,12.5,20.0,2.5,4500.0,9000.0,Industry Benchmark,ESTIMATED
+SUPRAMAX,Standard,55000,50000,12.2,190.0,32.26,13.0,26.0,3.0,4800.0,12000.0,Industry Benchmark,ESTIMATED
+PANAMAX,Standard,75000,70000,14.0,229.0,32.26,13.0,32.0,3.5,5200.0,14000.0,Industry Benchmark,ESTIMATED
+PANAMAX,Kamsarmax,82000,77000,14.4,229.0,32.26,13.0,34.0,3.5,5400.0,15000.0,Industry Benchmark,ESTIMATED
+CAPESIZE,Standard,180000,170000,18.2,295.0,47.0,13.0,50.0,4.5,6500.0,22000.0,Industry Benchmark,ESTIMATED
+CAPESIZE,Newcastlemax,210000,200000,18.5,300.0,50.0,13.0,52.0,5.0,7000.0,24000.0,Industry Benchmark,ESTIMATED

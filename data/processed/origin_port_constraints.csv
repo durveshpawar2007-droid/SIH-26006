@@ -1,0 +1,7 @@
+origin_port,country,commodity_supported,max_draft_m,max_loa_m,max_beam_m,cargo_handling_capacity,cargo_handling_rate_mt_day,source,provenance
+NEWCASTLE_AU,Australia,Coking/Thermal Coal,16.5,300.0,50.0,High,80000.0,Newcastle Port Authority,REAL
+GLADSTONE_AU,Australia,Coking/Thermal Coal,16.3,315.0,50.0,High,80000.0,Gladstone Ports Corp,REAL
+KALIMANTAN_ID,Indonesia,Thermal/Semi-soft Coal,16.0,300.0,50.0,High (Anchorage),30000.0,Indonesian Coal Terminals Benchmark,ESTIMATED
+NORFOLK_US,United States,Coking Coal,15.2,300.0,46.0,High,60000.0,Port of Virginia,ESTIMATED
+MAPUTO_MZ,Mozambique,Coking/Thermal Coal,14.5,280.0,42.0,Medium,40000.0,MPDC Matola Terminal,ESTIMATED
+VOSTOCHNY_RU,Russia,Coking/Thermal Coal,16.5,300.0,46.0,High,60000.0,Vostochny Port JSC,ESTIMATED

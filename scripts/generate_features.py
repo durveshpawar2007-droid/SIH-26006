@@ -14,7 +14,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
 from src.config.settings import DATA_PROCESSED_DIR, LOG_FORMAT, LOG_LEVEL
-from src.processors.feature_engineer import FeatureEngineer
+from src.processors.feature_engineer import MLFeatureEngineer
 
 
 def main():
@@ -22,10 +22,10 @@ def main():
     logger = logging.getLogger("generate_features")
 
     processed_dir = Path(DATA_PROCESSED_DIR)
-    engineer = FeatureEngineer(processed_dir=processed_dir)
+    engineer = MLFeatureEngineer(processed_dir=processed_dir)
 
     logger.info("Generating model features dataset...")
-    df = engineer.generate_features()
+    df = engineer.create_dataset()
 
     if df is not None and not df.empty:
         logger.info(f"Successfully generated model features ({len(df)} rows).")

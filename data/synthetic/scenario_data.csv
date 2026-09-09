@@ -1,13 +1,4 @@
 scenario_name,date,variable,baseline_value,scenario_value,change_pct,scenario_type,data_type
-Bunker +20%,2026-07-17,bunker_vlsfo,782.0,938.4,20.0,COST_SHOCK,SYNTHETIC
-USD/INR +5% Depreciation,2026-07-17,usd_inr,96.28,101.09,5.0,FOREX_RISK,SYNTHETIC
-Freight Market Surge +30%,2026-07-17,charter_rate_proxy,12.66,16.46,30.0,MARKET_VOLATILITY,SYNTHETIC
-Bunker +20%,2026-07-20,bunker_vlsfo,793.0,951.6,20.0,COST_SHOCK,SYNTHETIC
-USD/INR +5% Depreciation,2026-07-20,usd_inr,96.45,101.27,5.0,FOREX_RISK,SYNTHETIC
-Freight Market Surge +30%,2026-07-20,charter_rate_proxy,12.19,15.85,30.0,MARKET_VOLATILITY,SYNTHETIC
-Bunker +20%,2026-07-21,bunker_vlsfo,793.0,951.6,20.0,COST_SHOCK,SYNTHETIC
-USD/INR +5% Depreciation,2026-07-21,usd_inr,96.24,101.05,5.0,FOREX_RISK,SYNTHETIC
-Freight Market Surge +30%,2026-07-21,charter_rate_proxy,12.62,16.41,30.0,MARKET_VOLATILITY,SYNTHETIC
 Bunker +20%,2026-07-22,bunker_vlsfo,809.5,971.4,20.0,COST_SHOCK,SYNTHETIC
 USD/INR +5% Depreciation,2026-07-22,usd_inr,96.57,101.4,5.0,FOREX_RISK,SYNTHETIC
 Freight Market Surge +30%,2026-07-22,charter_rate_proxy,12.51,16.26,30.0,MARKET_VOLATILITY,SYNTHETIC
@@ -89,5 +80,14 @@ Freight Market Surge +30%,2026-08-27,charter_rate_proxy,14.82,19.27,30.0,MARKET_
 Bunker +20%,2026-08-28,bunker_vlsfo,799.0,958.8,20.0,COST_SHOCK,SYNTHETIC
 USD/INR +5% Depreciation,2026-08-28,usd_inr,95.38,100.15,5.0,FOREX_RISK,SYNTHETIC
 Freight Market Surge +30%,2026-08-28,charter_rate_proxy,15.52,20.18,30.0,MARKET_VOLATILITY,SYNTHETIC
+Bunker +20%,2026-08-31,bunker_vlsfo,810.5,972.6,20.0,COST_SHOCK,SYNTHETIC
+USD/INR +5% Depreciation,2026-08-31,usd_inr,95.16,99.92,5.0,FOREX_RISK,SYNTHETIC
+Freight Market Surge +30%,2026-08-31,charter_rate_proxy,15.47,20.11,30.0,MARKET_VOLATILITY,SYNTHETIC
+Bunker +20%,2026-09-01,bunker_vlsfo,821.5,985.8,20.0,COST_SHOCK,SYNTHETIC
+USD/INR +5% Depreciation,2026-09-01,usd_inr,94.95,99.7,5.0,FOREX_RISK,SYNTHETIC
+Freight Market Surge +30%,2026-09-01,charter_rate_proxy,15.8,20.53,30.0,MARKET_VOLATILITY,SYNTHETIC
+Bunker +20%,2026-09-02,bunker_vlsfo,840.0,1008.0,20.0,COST_SHOCK,SYNTHETIC
+USD/INR +5% Depreciation,2026-09-02,usd_inr,94.97,99.72,5.0,FOREX_RISK,SYNTHETIC
+Freight Market Surge +30%,2026-09-02,charter_rate_proxy,16.58,21.55,30.0,MARKET_VOLATILITY,SYNTHETIC
 Paradip Congestion +4 Days,CURRENT_SIMULATION,paradip_preberthing_wait_hrs,18.0,114.0,533.3,OPERATIONAL_BOTTLENECK,SYNTHETIC
 Vizag Congestion +3 Days,CURRENT_SIMULATION,vizag_preberthing_wait_hrs,12.0,84.0,600.0,OPERATIONAL_BOTTLENECK,SYNTHETIC

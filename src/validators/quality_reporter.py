@@ -60,12 +60,17 @@ class QualityReporter:
                     "end_date": str(valid_dates.max().strftime("%Y-%m-%d")),
                     "unique_dates": int(valid_dates.nunique()),
                 }
-            if {"origin", "destination", "vessel_type"}.issubset(df.columns):
+            if "vessel_variant" in df.columns:
+                dupes = df.duplicated(subset=["date", "origin", "destination", "vessel_type", "vessel_variant"]).sum()
+                if dupes > 0:
+                    errors.append(f"[{dataset_name}] Found {dupes} duplicate (date, route, vessel, variant) records.")
+            elif {"origin", "destination", "vessel_type"}.issubset(df.columns):
                 dupes = df.duplicated(subset=["date", "origin", "destination", "vessel_type"]).sum()
-                report["duplicate_composite_keys_count"] = int(dupes)
+                if dupes > 0:
+                    errors.append(f"[{dataset_name}] Found {dupes} duplicate (date, route, vessel) records.")
             else:
                 dupes = df.duplicated(subset=["date"]).sum()
-                report["duplicate_dates_count"] = int(dupes)
+            report["duplicate_rows_count"] = int(dupes)
         else:
             report["duplicate_rows_count"] = int(df.duplicated().sum())
 

@@ -1,7 +1,24 @@
-origin,destination,distance_nm,typical_transit_days,route_notes,vessel_restrictions,source,data_type
-NEWCASTLE_AU,PARADIP,5400,18.0,"Via Lombok/Sunda Strait, Bay of Bengal",,"Sea-distances.org, NGA Pub 151",REAL
-NEWCASTLE_AU,VIZAG,5350,17.8,Via Lombok Strait into Bay of Bengal,,"Sea-distances.org, NGA Pub 151",REAL
-NEWCASTLE_AU,HALDIA,5500,18.3,"Via Lombok Strait, Hooghly river approach",Capesize excluded (9.1m draft limit at Haldia),"Sea-distances.org, NGA Pub 151",REAL
-KALIMANTAN_ID,PARADIP,2325,7.8,"Via Malacca Strait, Bay of Bengal",,"Sea-distances.org, NGA Pub 151",REAL
-KALIMANTAN_ID,VIZAG,2225,7.4,Via Malacca Strait into Bay of Bengal,,"Sea-distances.org, NGA Pub 151",REAL
-KALIMANTAN_ID,HALDIA,2425,8.1,"Via Malacca Strait, Hooghly river approach",Capesize excluded (9.1m draft limit at Haldia),"Sea-distances.org, NGA Pub 151",REAL
+route_id,origin_port,origin_country,destination_port,destination_country,distance_nautical_miles,estimated_sailing_days,route_notes,vessel_restrictions,source,provenance
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,Australia,PARADIP,India,5400,18.0,,,NGA Pub 151 Approximation,ESTIMATED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,Australia,VIZAG,India,5350,17.8,,,NGA Pub 151 Approximation,ESTIMATED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,Australia,HALDIA,India,5500,18.3,,,NGA Pub 151 Approximation,ESTIMATED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,Australia,GANGAVARAM,India,5350,17.8,,,NGA Pub 151 Approximation,ESTIMATED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,Australia,GOPALPUR,India,5380,17.9,,,NGA Pub 151 Approximation,ESTIMATED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,Australia,DHAMRA,India,5430,18.1,,,NGA Pub 151 Approximation,ESTIMATED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,Australia,SANDHEADS,India,5450,18.2,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,Indonesia,PARADIP,India,2325,7.8,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,Indonesia,VIZAG,India,2225,7.4,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,Indonesia,HALDIA,India,2425,8.1,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,Indonesia,GANGAVARAM,India,2225,7.4,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,Indonesia,GOPALPUR,India,2280,7.6,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,Indonesia,DHAMRA,India,2350,7.8,,,NGA Pub 151 Approximation,ESTIMATED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,Indonesia,SANDHEADS,India,2380,7.9,,,NGA Pub 151 Approximation,ESTIMATED
+NORFOLK_US_PARADIP,NORFOLK_US,United States,PARADIP,India,10100,33.7,,,NGA Pub 151 Approximation,ESTIMATED
+NORFOLK_US_VIZAG,NORFOLK_US,United States,VIZAG,India,9900,33.0,,,NGA Pub 151 Approximation,ESTIMATED
+NORFOLK_US_HALDIA,NORFOLK_US,United States,HALDIA,India,10200,34.0,,,NGA Pub 151 Approximation,ESTIMATED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,Mozambique,PARADIP,India,3700,12.3,,,NGA Pub 151 Approximation,ESTIMATED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,Mozambique,VIZAG,India,3500,11.7,,,NGA Pub 151 Approximation,ESTIMATED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,Mozambique,HALDIA,India,3800,12.7,,,NGA Pub 151 Approximation,ESTIMATED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,Russia,PARADIP,India,5200,17.3,,,NGA Pub 151 Approximation,ESTIMATED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,Russia,VIZAG,India,5100,17.0,,,NGA Pub 151 Approximation,ESTIMATED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,Russia,HALDIA,India,5300,17.7,,,NGA Pub 151 Approximation,ESTIMATED

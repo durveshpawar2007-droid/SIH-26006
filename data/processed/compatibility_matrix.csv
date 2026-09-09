@@ -1,0 +1,139 @@
+route_id,origin_port,destination_port,vessel_type,vessel_variant,origin_compatible,destination_compatible,overall_compatible,constraint_failure_reason,provenance
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,PARADIP,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,PARADIP,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,PARADIP,PANAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,PARADIP,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,PARADIP,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+NEWCASTLE_AU_PARADIP,NEWCASTLE_AU,PARADIP,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,VIZAG,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,VIZAG,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,VIZAG,PANAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,VIZAG,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,VIZAG,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Dest draft limit 18.1m,DERIVED
+NEWCASTLE_AU_VIZAG,NEWCASTLE_AU,VIZAG,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Dest draft limit 18.1m,DERIVED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,HALDIA,HANDYSIZE,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,HALDIA,SUPRAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,HALDIA,PANAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,HALDIA,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 9.1m,DERIVED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,HALDIA,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+NEWCASTLE_AU_HALDIA,NEWCASTLE_AU,HALDIA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,GANGAVARAM,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,GANGAVARAM,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,GANGAVARAM,PANAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,GANGAVARAM,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,GANGAVARAM,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Dest draft limit 18.0m,DERIVED
+NEWCASTLE_AU_GANGAVARAM,NEWCASTLE_AU,GANGAVARAM,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Dest draft limit 18.0m,DERIVED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,GOPALPUR,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,GOPALPUR,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,GOPALPUR,PANAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,GOPALPUR,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 14.0m,DERIVED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,GOPALPUR,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Dest draft limit 14.0m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+NEWCASTLE_AU_GOPALPUR,NEWCASTLE_AU,GOPALPUR,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Dest draft limit 14.0m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,DHAMRA,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,DHAMRA,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,DHAMRA,PANAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,DHAMRA,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,DHAMRA,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Dest draft limit 18.0m,DERIVED
+NEWCASTLE_AU_DHAMRA,NEWCASTLE_AU,DHAMRA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Dest draft limit 18.0m,DERIVED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,SANDHEADS,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,SANDHEADS,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,SANDHEADS,PANAMAX,Standard,True,True,True,None,DERIVED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,SANDHEADS,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,SANDHEADS,CAPESIZE,Standard,False,True,False,Origin draft limit 16.5m,DERIVED
+NEWCASTLE_AU_SANDHEADS,NEWCASTLE_AU,SANDHEADS,CAPESIZE,Newcastlemax,False,True,False,Origin draft limit 16.5m,DERIVED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,PARADIP,HANDYSIZE,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,PARADIP,SUPRAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,PARADIP,PANAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,PARADIP,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,PARADIP,CAPESIZE,Standard,False,False,False,Origin draft limit 16.0m | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+KALIMANTAN_ID_PARADIP,KALIMANTAN_ID,PARADIP,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.0m | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,VIZAG,HANDYSIZE,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,VIZAG,SUPRAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,VIZAG,PANAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,VIZAG,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,VIZAG,CAPESIZE,Standard,False,False,False,Origin draft limit 16.0m | Dest draft limit 18.1m,DERIVED
+KALIMANTAN_ID_VIZAG,KALIMANTAN_ID,VIZAG,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.0m | Dest draft limit 18.1m,DERIVED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,HALDIA,HANDYSIZE,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,HALDIA,SUPRAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,HALDIA,PANAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,HALDIA,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 9.1m,DERIVED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,HALDIA,CAPESIZE,Standard,False,False,False,Origin draft limit 16.0m | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+KALIMANTAN_ID_HALDIA,KALIMANTAN_ID,HALDIA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.0m | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,GANGAVARAM,HANDYSIZE,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,GANGAVARAM,SUPRAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,GANGAVARAM,PANAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,GANGAVARAM,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,GANGAVARAM,CAPESIZE,Standard,False,False,False,Origin draft limit 16.0m | Dest draft limit 18.0m,DERIVED
+KALIMANTAN_ID_GANGAVARAM,KALIMANTAN_ID,GANGAVARAM,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.0m | Dest draft limit 18.0m,DERIVED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,GOPALPUR,HANDYSIZE,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,GOPALPUR,SUPRAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,GOPALPUR,PANAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,GOPALPUR,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 14.0m,DERIVED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,GOPALPUR,CAPESIZE,Standard,False,False,False,Origin draft limit 16.0m | Dest draft limit 14.0m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+KALIMANTAN_ID_GOPALPUR,KALIMANTAN_ID,GOPALPUR,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.0m | Dest draft limit 14.0m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,DHAMRA,HANDYSIZE,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,DHAMRA,SUPRAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,DHAMRA,PANAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,DHAMRA,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,DHAMRA,CAPESIZE,Standard,False,False,False,Origin draft limit 16.0m | Dest draft limit 18.0m,DERIVED
+KALIMANTAN_ID_DHAMRA,KALIMANTAN_ID,DHAMRA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.0m | Dest draft limit 18.0m,DERIVED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,SANDHEADS,HANDYSIZE,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,SANDHEADS,SUPRAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,SANDHEADS,PANAMAX,Standard,True,True,True,None,DERIVED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,SANDHEADS,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,SANDHEADS,CAPESIZE,Standard,False,True,False,Origin draft limit 16.0m,DERIVED
+KALIMANTAN_ID_SANDHEADS,KALIMANTAN_ID,SANDHEADS,CAPESIZE,Newcastlemax,False,True,False,Origin draft limit 16.0m,DERIVED
+NORFOLK_US_PARADIP,NORFOLK_US,PARADIP,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NORFOLK_US_PARADIP,NORFOLK_US,PARADIP,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NORFOLK_US_PARADIP,NORFOLK_US,PARADIP,PANAMAX,Standard,True,True,True,None,DERIVED
+NORFOLK_US_PARADIP,NORFOLK_US,PARADIP,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NORFOLK_US_PARADIP,NORFOLK_US,PARADIP,CAPESIZE,Standard,False,False,False,Origin draft limit 15.2m | Origin dimensional limit | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+NORFOLK_US_PARADIP,NORFOLK_US,PARADIP,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 15.2m | Origin dimensional limit | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+NORFOLK_US_VIZAG,NORFOLK_US,VIZAG,HANDYSIZE,Standard,True,True,True,None,DERIVED
+NORFOLK_US_VIZAG,NORFOLK_US,VIZAG,SUPRAMAX,Standard,True,True,True,None,DERIVED
+NORFOLK_US_VIZAG,NORFOLK_US,VIZAG,PANAMAX,Standard,True,True,True,None,DERIVED
+NORFOLK_US_VIZAG,NORFOLK_US,VIZAG,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+NORFOLK_US_VIZAG,NORFOLK_US,VIZAG,CAPESIZE,Standard,False,False,False,Origin draft limit 15.2m | Origin dimensional limit | Dest draft limit 18.1m,DERIVED
+NORFOLK_US_VIZAG,NORFOLK_US,VIZAG,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 15.2m | Origin dimensional limit | Dest draft limit 18.1m,DERIVED
+NORFOLK_US_HALDIA,NORFOLK_US,HALDIA,HANDYSIZE,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+NORFOLK_US_HALDIA,NORFOLK_US,HALDIA,SUPRAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+NORFOLK_US_HALDIA,NORFOLK_US,HALDIA,PANAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+NORFOLK_US_HALDIA,NORFOLK_US,HALDIA,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 9.1m,DERIVED
+NORFOLK_US_HALDIA,NORFOLK_US,HALDIA,CAPESIZE,Standard,False,False,False,Origin draft limit 15.2m | Origin dimensional limit | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+NORFOLK_US_HALDIA,NORFOLK_US,HALDIA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 15.2m | Origin dimensional limit | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,PARADIP,HANDYSIZE,Standard,True,True,True,None,DERIVED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,PARADIP,SUPRAMAX,Standard,True,True,True,None,DERIVED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,PARADIP,PANAMAX,Standard,True,True,True,None,DERIVED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,PARADIP,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,PARADIP,CAPESIZE,Standard,False,False,False,Origin draft limit 14.5m | Origin dimensional limit | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+MAPUTO_MZ_PARADIP,MAPUTO_MZ,PARADIP,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 14.5m | Origin dimensional limit | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,VIZAG,HANDYSIZE,Standard,True,True,True,None,DERIVED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,VIZAG,SUPRAMAX,Standard,True,True,True,None,DERIVED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,VIZAG,PANAMAX,Standard,True,True,True,None,DERIVED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,VIZAG,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,VIZAG,CAPESIZE,Standard,False,False,False,Origin draft limit 14.5m | Origin dimensional limit | Dest draft limit 18.1m,DERIVED
+MAPUTO_MZ_VIZAG,MAPUTO_MZ,VIZAG,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 14.5m | Origin dimensional limit | Dest draft limit 18.1m,DERIVED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,HALDIA,HANDYSIZE,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,HALDIA,SUPRAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,HALDIA,PANAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,HALDIA,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 9.1m,DERIVED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,HALDIA,CAPESIZE,Standard,False,False,False,Origin draft limit 14.5m | Origin dimensional limit | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+MAPUTO_MZ_HALDIA,MAPUTO_MZ,HALDIA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 14.5m | Origin dimensional limit | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,PARADIP,HANDYSIZE,Standard,True,True,True,None,DERIVED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,PARADIP,SUPRAMAX,Standard,True,True,True,None,DERIVED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,PARADIP,PANAMAX,Standard,True,True,True,None,DERIVED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,PARADIP,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,PARADIP,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Origin dimensional limit | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+VOSTOCHNY_RU_PARADIP,VOSTOCHNY_RU,PARADIP,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Origin dimensional limit | Dest draft limit 16.5m | Dest dimensional limit,DERIVED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,VIZAG,HANDYSIZE,Standard,True,True,True,None,DERIVED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,VIZAG,SUPRAMAX,Standard,True,True,True,None,DERIVED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,VIZAG,PANAMAX,Standard,True,True,True,None,DERIVED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,VIZAG,PANAMAX,Kamsarmax,True,True,True,None,DERIVED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,VIZAG,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Origin dimensional limit | Dest draft limit 18.1m,DERIVED
+VOSTOCHNY_RU_VIZAG,VOSTOCHNY_RU,VIZAG,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Origin dimensional limit | Dest draft limit 18.1m,DERIVED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,HALDIA,HANDYSIZE,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,HALDIA,SUPRAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,HALDIA,PANAMAX,Standard,True,False,False,Dest draft limit 9.1m,DERIVED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,HALDIA,PANAMAX,Kamsarmax,True,False,False,Dest draft limit 9.1m,DERIVED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,HALDIA,CAPESIZE,Standard,False,False,False,Origin draft limit 16.5m | Origin dimensional limit | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED
+VOSTOCHNY_RU_HALDIA,VOSTOCHNY_RU,HALDIA,CAPESIZE,Newcastlemax,False,False,False,Origin draft limit 16.5m | Origin dimensional limit | Dest draft limit 9.1m | Dest dimensional limit | Dest strict vessel ban,DERIVED

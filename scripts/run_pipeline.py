@@ -97,7 +97,10 @@ def main():
     # 7. Scenario Generation
     stages.append(([sys.executable, "scripts/generate_scenarios.py"], "Generate Synthetic Scenarios"))
 
-    # 8. Validation and Quality Reporting
+    # 8. Advanced Strategy Layers (Phase 3)
+    stages.append(([sys.executable, "scripts/generate_strategy_layers.py"], "Generate Strategy & Congestion Layers"))
+
+    # 9. Validation and Quality Reporting
     stages.append(([sys.executable, "scripts/validate_data.py"], "Validate Datasets & Report Quality"))
 
     # Execute stages in strict sequential pipeline order

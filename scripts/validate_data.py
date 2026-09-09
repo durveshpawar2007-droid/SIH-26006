@@ -23,6 +23,8 @@ from src.config.schemas import (
     PORT_CONSTRAINTS_SCHEMA,
     ROUTES_SCHEMA,
     VESSEL_SPECS_SCHEMA,
+    PORT_CONGESTION_SCHEMA,
+    CONTRACT_SCENARIOS_SCHEMA,
 )
 from src.config.settings import DATA_METADATA_DIR, DATA_PROCESSED_DIR, LOG_FORMAT, LOG_LEVEL
 from src.validators.quality_reporter import QualityReporter
@@ -49,6 +51,8 @@ def main():
         ("plant_params.csv", PLANT_PARAMS_SCHEMA, "plant_params"),
         ("freight_estimates.csv", FREIGHT_ESTIMATES_SCHEMA, "freight_estimates"),
         ("model_features.csv", MODEL_FEATURES_SCHEMA, "model_features"),
+        ("../synthetic/port_congestion.csv", PORT_CONGESTION_SCHEMA, "port_congestion"),
+        ("../synthetic/contract_scenarios.csv", CONTRACT_SCENARIOS_SCHEMA, "contract_scenarios"),
     ]
 
     for filename, schema, name in datasets_to_check:
