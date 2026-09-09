@@ -20,3 +20,8 @@ pytest>=7.4.0
 
 # Optional: Socrata API client (alternative to direct CSV download)
 # sodapy>=2.2.0
+
+# ML & Optimization
+matplotlib>=3.8.0
+scikit-learn>=1.4.0
+ortools>=9.9.0
