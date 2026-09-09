@@ -1,0 +1,246 @@
+[
+  {
+    "scenario": "Baseline Market",
+    "notes": "Current prevailing commercial conditions",
+    "heuristic_cost_usd": 19491000.0,
+    "heuristic_cost_inr_cr": 161.7753,
+    "milp_cost_usd": 14932000.0,
+    "milp_cost_inr_cr": 123.9356,
+    "savings_inr_cr": 37.83969999999999,
+    "savings_percentage": 23.39,
+    "optimized_dispatch_plan": [
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "SUPRAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 50000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "HANDYSIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 32000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 2,
+        "tonnage_mt": 300000
+      }
+    ]
+  },
+  {
+    "scenario": "Bunker Shock (+20%)",
+    "notes": "VLSFO bunker costs spike from $809.5 to $971.4/MT",
+    "heuristic_cost_usd": 21050280.0,
+    "heuristic_cost_inr_cr": 174.717324,
+    "milp_cost_usd": 16126560.0,
+    "milp_cost_inr_cr": 133.850448,
+    "savings_inr_cr": 40.86687599999999,
+    "savings_percentage": 23.39,
+    "optimized_dispatch_plan": [
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "SUPRAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 50000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "HANDYSIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 32000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 2,
+        "tonnage_mt": 300000
+      }
+    ]
+  },
+  {
+    "scenario": "Forex Risk (+5% USD/INR)",
+    "notes": "Rupee depreciates by 5% to 101.40 vs USD",
+    "heuristic_cost_usd": 19491000.0,
+    "heuristic_cost_inr_cr": 197.63874,
+    "milp_cost_usd": 14932000.0,
+    "milp_cost_inr_cr": 151.41048,
+    "savings_inr_cr": 46.228260000000006,
+    "savings_percentage": 23.39,
+    "optimized_dispatch_plan": [
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "SUPRAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 50000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "HANDYSIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 32000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 2,
+        "tonnage_mt": 300000
+      }
+    ]
+  },
+  {
+    "scenario": "Freight Surge (+30%)",
+    "notes": "Baltic Dry Index volatility inflates charter rates by 30%",
+    "heuristic_cost_usd": 22999380.0,
+    "heuristic_cost_inr_cr": 190.894854,
+    "milp_cost_usd": 17515080.0,
+    "milp_cost_inr_cr": 145.375164,
+    "savings_inr_cr": 45.51969,
+    "savings_percentage": 23.85,
+    "optimized_dispatch_plan": [
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_ROURKELA",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "PANAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 70000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 150000
+      },
+      {
+        "plant": "SAIL_BOKARO",
+        "port": "GANGAVARAM",
+        "vessel": "SUPRAMAX",
+        "vessels_chartered": 1,
+        "tonnage_mt": 50000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "VIZAG",
+        "vessel": "CAPESIZE",
+        "vessels_chartered": 2,
+        "tonnage_mt": 300000
+      },
+      {
+        "plant": "RINL_VIZAG",
+        "port": "GANGAVARAM",
+        "vessel": "HANDYSIZE",
+        "vessels_chartered": 1,
+        "tonnage_mt": 32000
+      }
+    ]
+  }
+]
