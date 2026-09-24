@@ -196,14 +196,18 @@ source venv/bin/activate
 ```bash
 pip install -r requirements.txt
 ```
+### 4. Launch Live Decision Dashboard & UI
+```bash
+uvicorn src.api.main:app --reload --port 8000
+Open your browser at: http://localhost:8000
 
-### 4. Run the Full End-to-End Pipeline
+### 5. Run the Full End-to-End Pipeline
 ```bash
 # Ingests live data, cleans, calculates SVE freight, extracts features, generates scenarios, and validates
 python scripts/run_pipeline.py
 ```
 
-### 5. Run Individual Modular Scripts
+### 6. Run Individual Modular Scripts
 ```bash
 # Collect raw market data
 python scripts/collect_data.py
