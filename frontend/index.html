@@ -1,0 +1,1642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Maritime Logistics — AI Decision Support</title>
+    <link rel="icon" type="image/png" href="assets/screen.png">
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Chart.js CDN for Interactive Forecasts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Leaflet.js for Geospatial Maritime Tower -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        sidebar: '#0b192e',
+                        sidebarHover: '#132847',
+                        sidebarActive: '#1a365d',
+                        pageBg: '#f8fafc',
+                        cardBg: '#ffffff',
+                        borderColor: '#e2e8f0',
+                        primary: '#2563eb',
+                        primaryLight: '#eff6ff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        .font-tabular {
+            font-variant-numeric: tabular-nums;
+        }
+    </style>
+</head>
+
+<body class="bg-pageBg text-slate-800 flex h-screen overflow-hidden font-sans antialiased">
+
+    <!-- ==================== LEFT PERSISTENT SIDEBAR ==================== -->
+    <aside
+        class="w-64 bg-sidebar flex flex-col justify-between shrink-0 select-none text-slate-300 border-r border-slate-800">
+        <div>
+            <!-- Brand Logo Header -->
+            <div class="px-5 py-4 border-b border-slate-800/80 flex items-center space-x-3">
+                <img src="assets/screen.png" alt="Logo" class="w-8 h-8 rounded-lg object-contain shrink-0">
+                <div>
+                    <span
+                        class="text-[10px] tracking-wider text-slate-400 uppercase font-semibold block leading-tight">AI
+                        DECISION SUPPORT</span>
+                    <span class="text-xs font-bold text-white tracking-tight">Maritime Logistics</span>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="p-3 space-y-1">
+                <button onclick="switchTab('view-overview')" id="nav-view-overview"
+                    class="nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md bg-sidebarActive text-white border-l-2 border-blue-500 transition">
+                    <i class="fa-solid fa-chart-pie w-4 text-center mr-2.5 text-blue-400"></i> Overview
+                </button>
+                <button onclick="switchTab('view-forecast')" id="nav-view-forecast"
+                    class="nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md text-slate-300 hover:bg-sidebarHover transition">
+                    <i class="fa-solid fa-chart-line w-4 text-center mr-2.5 text-slate-400"></i> Freight Forecast
+                </button>
+                <button onclick="switchTab('view-optimization')" id="nav-view-optimization"
+                    class="nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md text-slate-300 hover:bg-sidebarHover transition">
+                    <i class="fa-solid fa-arrows-split-up-and-left w-4 text-center mr-2.5 text-slate-400"></i>
+                    Optimization
+                </button>
+                <button onclick="switchTab('view-ports')" id="nav-view-ports"
+                    class="nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md text-slate-300 hover:bg-sidebarHover transition">
+                    <i class="fa-solid fa-anchor w-4 text-center mr-2.5 text-slate-400"></i> Port Intelligence
+                </button>
+                <button onclick="switchTab('view-simulator')" id="nav-view-simulator"
+                    class="nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md text-slate-300 hover:bg-sidebarHover transition">
+                    <i class="fa-solid fa-sliders w-4 text-center mr-2.5 text-slate-400"></i> What-If Scenarios
+                </button>
+            </nav>
+        </div>
+
+        <!-- User & System Info Footer -->
+        <div class="p-3.5 border-t border-slate-800/80 bg-[#081220]">
+            <div class="flex items-center space-x-2.5">
+                <div
+                    class="w-7 h-7 rounded bg-blue-900/60 border border-blue-700/50 flex items-center justify-center text-[11px] font-bold text-blue-300">
+                    PO
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-[11px] font-semibold text-white truncate">PSU Procurement Officer</div>
+                    <div class="text-[9px] text-slate-400 truncate">SAIL / Coking Coal Desk</div>
+                </div>
+            </div>
+            <div
+                class="mt-2 pt-2 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                <span>System Status</span>
+                <span class="text-emerald-400 font-medium flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> Online
+                </span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ==================== MAIN WORKSPACE ==================== -->
+    <main class="flex-1 overflow-y-auto bg-pageBg p-6 space-y-5">
+
+        <!-- TAB 02: FREIGHT FORECAST (Apeksha's Exact Pixel-Perfect Screen) -->
+        <section id="view-forecast" class="tab-panel hidden space-y-5">
+            <!-- Top Title Header Bar -->
+            <div class="flex justify-between items-center pb-1">
+                <div>
+                    <div class="flex items-center gap-2">
+                        <h1 class="text-lg font-bold text-slate-900 tracking-tight">Freight Forecast</h1>
+                        <span
+                            class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 font-medium">Module
+                            02</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">AI-powered bulk freight rate outlook for imported coking
+                        coal procurement</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span
+                        class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 text-xs font-medium">
+                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Forecast model active
+                    </span>
+                </div>
+            </div>
+
+            <!-- Top 4 Clean Metric Cards -->
+            <div class="grid grid-cols-4 gap-4">
+                <!-- Current Rate -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-3.5 shadow-sm">
+                    <span class="text-[11px] font-medium text-slate-500 uppercase tracking-wide">CURRENT FIXTURE
+                        RATE</span>
+                    <div class="mt-1 flex items-baseline gap-1.5">
+                        <span class="text-xl font-bold font-mono text-slate-900">$18.40</span>
+                        <span class="text-xs text-slate-500">$/MT</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 mt-1.5 flex items-center gap-1">
+                        <i class="fa-regular fa-clock text-[9px]"></i> Latest fixture benchmark
+                    </span>
+                </div>
+
+                <!-- Expected Rate P50 -->
+                <div class="bg-cardBg border border-blue-200 rounded-lg p-3.5 shadow-sm bg-blue-50/20">
+                    <span class="text-[11px] font-medium text-blue-700 uppercase tracking-wide">EXPECTED RATE —
+                        P50</span>
+                    <div class="mt-1 flex items-baseline gap-1.5">
+                        <span class="text-xl font-bold font-mono text-blue-600">$14.10</span>
+                        <span class="text-xs text-blue-500">$/MT</span>
+                    </div>
+                    <span class="text-[10px] text-blue-600 mt-1.5 flex items-center gap-1">
+                        <i class="fa-solid fa-chart-line text-[9px]"></i> Central forecast trajectory
+                    </span>
+                </div>
+
+                <!-- Uncertainty Bounds -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-3.5 shadow-sm">
+                    <span class="text-[11px] font-medium text-slate-500 uppercase tracking-wide">FORECAST RANGE —
+                        P10–P90</span>
+                    <div class="mt-1 flex items-baseline gap-1.5">
+                        <span class="text-xl font-bold font-mono text-slate-900">$9.50 – $18.25</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 mt-1.5 flex items-center gap-1">
+                        <i class="fa-solid fa-shield-halved text-[9px]"></i> Uncertainty bounds
+                    </span>
+                </div>
+
+                <!-- Model Validation Metric -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-3.5 shadow-sm">
+                    <span class="text-[11px] font-medium text-slate-500 uppercase tracking-wide">MODEL VALIDATION</span>
+                    <div class="mt-1 flex items-baseline gap-1.5">
+                        <span class="text-xs text-slate-500">MAE</span>
+                        <span class="text-xl font-bold font-mono text-slate-900">$4.84</span>
+                        <span class="text-xs text-slate-500">/ MT</span>
+                    </div>
+                    <span class="text-[10px] text-slate-400 mt-1.5 flex items-center gap-1">
+                        <i class="fa-solid fa-circle-check text-emerald-500 text-[9px]"></i> Quantile Gradient Boosting
+                    </span>
+                </div>
+            </div>
+
+            <!-- Main Forecast Chart Card -->
+            <div class="bg-cardBg border border-borderColor rounded-lg p-5 shadow-sm">
+                <div class="flex justify-between items-center mb-3">
+                    <div>
+                        <div class="flex items-center gap-2">
+                            <h2 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Bulk Freight Spot Rate
+                                Trajectory &amp; AI Risk Bounds</h2>
+                            <span
+                                class="text-[10px] font-mono px-1.5 py-0.5 rounded bg-blue-100 text-blue-700">Validation
+                                MAE: $4.84/MT</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-0.5">Multi-horizon spot rate forecast for
+                            Panamax/Capesize dry bulk coal routes (USD / Metric Ton)</p>
+                    </div>
+                    <div
+                        class="flex items-center space-x-1 border border-borderColor rounded p-0.5 text-xs font-medium text-slate-600 bg-slate-50">
+                        <button id="btn-hz-15" onclick="loadForecastHorizon(15)"
+                            class="hz-btn px-2.5 py-1 rounded text-[11px] hover:bg-white transition">15D</button>
+                        <button id="btn-hz-30" onclick="loadForecastHorizon(30)"
+                            class="hz-btn px-2.5 py-1 rounded text-[11px] hover:bg-white transition">30D</button>
+                        <button id="btn-hz-60" onclick="loadForecastHorizon(60)"
+                            class="hz-btn px-2.5 py-1 rounded text-[11px] bg-white shadow-xs text-blue-600 font-semibold transition">60D</button>
+                        <button id="btn-hz-90" onclick="loadForecastHorizon(90)"
+                            class="hz-btn px-2.5 py-1 rounded text-[11px] hover:bg-white transition">90D</button>
+                    </div>
+                </div>
+                <!-- Interactive Live Forecast Canvas -->
+                <div class="rounded border border-slate-200 bg-white p-4 relative h-[360px]">
+                    <canvas id="freightForecastChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Bottom Strategy Guidance Cards -->
+            <div class="grid grid-cols-2 gap-4">
+                <!-- Procurement Signal -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                        <div>
+                            <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Procurement Signal</h3>
+                            <p class="text-[11px] text-slate-500">Translating freight trajectory into chartering &amp;
+                                procurement strategy</p>
+                        </div>
+                        <span
+                            class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-50 text-blue-700 border border-blue-200 font-semibold">DECISION
+                            SUPPORT</span>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3 text-xs">
+                        <div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+                            <span class="text-[10px] text-slate-500 uppercase font-medium block">Market Direction</span>
+                            <span class="font-semibold text-blue-700 mt-0.5 block">Softening / Downward</span>
+                        </div>
+                        <div class="p-2.5 rounded bg-slate-50 border border-slate-200">
+                            <span class="text-[10px] text-slate-500 uppercase font-medium block">Expected
+                                Movement</span>
+                            <span class="font-semibold text-emerald-700 mt-0.5 block">Decline from $18.40 to
+                                $14.10/MT</span>
+                        </div>
+                    </div>
+
+                    <div class="p-2.5 rounded bg-blue-50/40 border border-blue-200 text-xs">
+                        <span class="font-semibold text-blue-900">Recommended Timing:</span>
+                        <span class="text-slate-700"> Stagger spot fixtures; evaluate 60D forward contract
+                            window.</span>
+                    </div>
+                </div>
+
+                <!-- Understanding the Forecast -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-2.5">
+                    <div class="border-b border-slate-100 pb-2">
+                        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Understanding the Forecast
+                        </h3>
+                        <p class="text-[11px] text-slate-500">Plain-language interpretation guide for procurement
+                            officers</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs">
+                        <div class="flex items-start gap-2">
+                            <span
+                                class="px-1.5 py-0.5 rounded bg-blue-100 text-blue-700 font-mono text-[10px] font-semibold shrink-0">P50</span>
+                            <p class="text-slate-600 text-[11px]"><strong>Expected Trajectory:</strong> Median forecast
+                                under baseline market dynamics representing the most likely spot freight cost.</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span
+                                class="px-1.5 py-0.5 rounded bg-slate-200 text-slate-700 font-mono text-[10px] font-semibold shrink-0">P10</span>
+                            <p class="text-slate-600 text-[11px]"><strong>Favorable Market Bound:</strong> Lower
+                                boundary capturing favorable bunker dips and fleet availability.</p>
+                        </div>
+                        <div class="flex items-start gap-2">
+                            <span
+                                class="px-1.5 py-0.5 rounded bg-rose-100 text-rose-700 font-mono text-[10px] font-semibold shrink-0">P90</span>
+                            <p class="text-slate-600 text-[11px]"><strong>Stress Bound:</strong> Upper bound capturing
+                                geopolitical disruption and port congestion risk.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- TAB 01: OVERVIEW DASHBOARD -->
+        <section id="view-overview" class="tab-panel space-y-5">
+            <div class="flex justify-between items-center pb-1">
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight">Operations Overview</h1>
+                    <p class="text-xs text-slate-500 mt-0.5">Automated Dispatch Optimization &amp; Supply Chain
+                        Intelligence Ledger</p>
+                </div>
+                <span
+                    class="text-xs font-mono font-semibold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded border border-emerald-200">
+                    Target Volume: 822,000 MT Met
+                </span>
+            </div>
+
+            <!-- TOP 4 KPI CARDS -->
+            <div class="grid grid-cols-4 gap-4">
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm">
+                    <span class="text-[11px] font-medium text-slate-500 uppercase tracking-wide">OPTIMIZED COST
+                        OUTLAY</span>
+                    <div id="disp-opt-cost-cr" class="mt-1 text-2xl font-bold font-mono text-slate-900">₹123.94 Cr</div>
+                    <span class="text-[10px] text-slate-400 font-mono mt-1 block">$14.93M USD Equivalent</span>
+                </div>
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm">
+                    <span class="text-[11px] font-medium text-slate-500 uppercase tracking-wide">BASELINE COST</span>
+                    <div class="mt-1 text-2xl font-bold font-mono text-slate-700">₹161.78 Cr</div>
+                    <span class="text-[10px] text-rose-500 font-mono mt-1 block">Unoptimized Spot Market</span>
+                </div>
+                <div class="bg-cardBg border border-emerald-300 rounded-lg p-4 shadow-sm bg-emerald-50/30">
+                    <span class="text-[11px] font-medium text-emerald-700 uppercase tracking-wide">NET COST
+                        SAVINGS</span>
+                    <div id="disp-net-savings-cr" class="mt-1 text-2xl font-bold font-mono text-emerald-600">₹37.84 Cr
+                    </div>
+                    <span class="text-[10px] text-emerald-700 font-mono mt-1 block">-23.39% Procurement Gain</span>
+                </div>
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm">
+                    <span class="text-[11px] font-medium text-slate-500 uppercase tracking-wide">ACTIVE CHARTERS</span>
+                    <div class="mt-1 text-2xl font-bold font-mono text-slate-900">7 Bulk Vessels</div>
+                    <span class="text-[10px] text-emerald-600 font-mono mt-1 block">Capesize, Panamax, Handy</span>
+                </div>
+            </div>
+
+            <!-- LOWER OPERATIONS SECTION -->
+            <div class="grid grid-cols-3 gap-5">
+                <!-- INBOUND CONSIGNMENTS MONITOR (2 COLS) -->
+                <div class="col-span-2 bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-3">
+                    <div class="flex items-center justify-between border-b border-borderColor pb-2.5">
+                        <div class="flex items-center space-x-2">
+                            <span class="relative flex h-2 w-2">
+                                <span
+                                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                            </span>
+                            <h3 class="text-sm font-bold text-slate-900 tracking-tight">Active Inbound Coking Coal
+                                Fixtures (Live AIS Tracking)</h3>
+                        </div>
+                        <span class="text-[11px] font-mono text-slate-500">7 Voyages Monitored</span>
+                    </div>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
+                            <thead>
+                                <tr
+                                    class="text-[11px] font-medium text-slate-400 border-b border-slate-100 uppercase tracking-wider">
+                                    <th class="pb-2">Vessel / IMO</th>
+                                    <th class="pb-2">Class</th>
+                                    <th class="pb-2">Origin Port</th>
+                                    <th class="pb-2">Dest Port</th>
+                                    <th class="pb-2">Cargo (MT)</th>
+                                    <th class="pb-2">Laycan / ETA</th>
+                                    <th class="pb-2 text-right">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 font-mono text-slate-600">
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-2.5 font-medium text-slate-800">MV Ocean Pioneer</td>
+                                    <td><span
+                                            class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700">CAPESIZE</span>
+                                    </td>
+                                    <td class="font-sans">Hay Point (AUS)</td>
+                                    <td class="font-sans">Paradip Port</td>
+                                    <td>150,000</td>
+                                    <td class="text-slate-500 font-sans">Oct 02, 2026</td>
+                                    <td class="text-right font-sans"><span class="text-emerald-600 font-medium">In
+                                            Transit (Bay of Bengal)</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-2.5 font-medium text-slate-800">MV Bharat Bulk</td>
+                                    <td><span
+                                            class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-blue-50 text-blue-700">CAPESIZE</span>
+                                    </td>
+                                    <td class="font-sans">Gladstone (AUS)</td>
+                                    <td class="font-sans">Vizag Outer</td>
+                                    <td>150,000</td>
+                                    <td class="text-slate-500 font-sans">Oct 05, 2026</td>
+                                    <td class="text-right font-sans"><span class="text-emerald-600 font-medium">Underway
+                                            (Malacca Strait)</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-2.5 font-medium text-slate-800">MV Bengal Pride</td>
+                                    <td><span
+                                            class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-indigo-50 text-indigo-700">PANAMAX</span>
+                                    </td>
+                                    <td class="font-sans">Samarinda (IDN)</td>
+                                    <td class="font-sans">Paradip Port</td>
+                                    <td>70,000</td>
+                                    <td class="text-slate-500 font-sans">Sep 28, 2026</td>
+                                    <td class="text-right font-sans"><span
+                                            class="text-amber-600 font-medium">Approaching Anchorage</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-2.5 font-medium text-slate-800">MV Ganga Trader</td>
+                                    <td><span
+                                            class="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-purple-50 text-purple-700">SUPRAMAX</span>
+                                    </td>
+                                    <td class="font-sans">Balikpapan (IDN)</td>
+                                    <td class="font-sans">Haldia Lock</td>
+                                    <td>50,000</td>
+                                    <td class="text-slate-500 font-sans">Sep 29, 2026</td>
+                                    <td class="text-right font-sans"><span class="text-blue-600 font-medium">Pilot
+                                            Boarded</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- LIVE CORRIDOR TELEMETRY & MACRO BENCHMARKS (1 COL) -->
+                <div
+                    class="col-span-1 bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm flex flex-col justify-between space-y-4">
+                    <div>
+                        <!-- Header with Pulsating Live Dot -->
+                        <div class="border-b border-borderColor pb-2 flex items-center justify-between">
+                            <h3 class="text-sm font-bold text-slate-900 tracking-tight flex items-center gap-2">
+                                <i class="fa-solid fa-satellite-dish text-blue-600"></i> Live Route &amp; Macro Feeds
+                            </h3>
+                            <span
+                                class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> LIVE API
+                            </span>
+                        </div>
+
+                        <!-- Live Marine Weather Telemetry Badges (Open-Meteo) -->
+                        <div class="mt-3 space-y-2.5">
+                            <!-- Bay of Bengal Corridor -->
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-water text-blue-500"></i> Bay of Bengal (Inbound)
+                                    </span>
+                                    <span id="bob-risk-badge"
+                                        class="px-1.5 py-0.5 text-[9px] font-bold rounded bg-amber-100 text-amber-800">SYNCING...</span>
+                                </div>
+                                <div class="mt-1.5 flex items-baseline justify-between text-xs font-mono">
+                                    <span class="text-slate-500">Wave Height: <strong id="bob-wave-height"
+                                            class="text-slate-800 font-bold">-- m</strong></span>
+                                    <span class="text-slate-500">Period: <strong id="bob-wave-period"
+                                            class="text-slate-800 font-bold">-- s</strong></span>
+                                </div>
+                            </div>
+
+                            <!-- Malacca Strait Chokepoint -->
+                            <div class="p-2.5 rounded-lg bg-slate-50 border border-slate-200">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-semibold text-slate-800 flex items-center gap-1.5">
+                                        <i class="fa-solid fa-compass text-teal-600"></i> Malacca Strait Choke
+                                    </span>
+                                    <span id="malacca-risk-badge"
+                                        class="px-1.5 py-0.5 text-[9px] font-bold rounded bg-emerald-100 text-emerald-800">CALM</span>
+                                </div>
+                                <div class="mt-1.5 flex items-baseline justify-between text-xs font-mono">
+                                    <span class="text-slate-500">Wave Height: <strong id="malacca-wave-height"
+                                            class="text-slate-800 font-bold">-- m</strong></span>
+                                    <span class="text-slate-500">Weather Delay: <strong id="corridor-delay-impact"
+                                            class="text-slate-800 font-bold">+0 hrs</strong></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Macro Benchmarks List -->
+                        <div class="mt-3.5 pt-3 border-t border-slate-200 space-y-2 text-xs">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-semibold text-slate-700">Baltic Dry Index (BDI)</span>
+                                    <div class="text-[10px] text-slate-400">Global Dry Bulk Benchmark</div>
+                                </div>
+                                <div class="text-right font-mono">
+                                    <span class="font-bold text-slate-800">1,942 pts</span>
+                                    <span class="block text-[10px] text-rose-500">-1.8% Day</span>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-semibold text-slate-700">VLSFO Bunker (Singapore)</span>
+                                    <div class="text-[10px] text-slate-400">Marine Fuel 0.5% Sulfur</div>
+                                </div>
+                                <div class="text-right font-mono">
+                                    <span class="font-bold text-slate-800">$618.50/MT</span>
+                                    <span class="block text-[10px] text-emerald-600">+0.6% Day</span>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-semibold text-slate-700">Coking Coal (FOB Hay Point)</span>
+                                    <div class="text-[10px] text-slate-400">Premium Low-Vol HCC</div>
+                                </div>
+                                <div class="text-right font-mono">
+                                    <span class="font-bold text-slate-800">$242.00/MT</span>
+                                    <span class="block text-[10px] text-slate-400">Unchanged</span>
+                                </div>
+                            </div>
+
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <span class="font-semibold text-slate-700">USD / INR Exchange</span>
+                                    <div class="text-[10px] text-slate-400">Live Forex Rate</div>
+                                </div>
+                                <div class="text-right font-mono">
+                                    <span class="font-bold text-slate-800" id="live-usd-inr">₹83.50</span>
+                                    <span class="block text-[10px] text-emerald-600" id="live-usd-status">Live
+                                        API</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Telemetry Sync Status Footer -->
+                    <div
+                        class="pt-2 border-t border-slate-100 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                        <span>Source: Open-Meteo &amp; FX API</span>
+                        <span id="telemetry-sync-time">Syncing...</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 03: FLEET ALLOCATION -->
+        <section id="view-optimization" class="tab-panel hidden space-y-5">
+            <div class="flex justify-between items-center pb-1">
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight">Fleet Allocation &amp; Plant Dispatch
+                        Workspace</h1>
+                    <p class="text-xs text-slate-500 mt-0.5">OR-Tools MILP Solver Optimal Assignments Across Plants
+                        &amp; Discharge Ports</p>
+                </div>
+                <span
+                    class="text-xs font-mono px-2.5 py-1 rounded bg-amber-50 text-amber-700 border border-amber-200 font-semibold">
+                    Guardrail Active: Haldia 8.5m Draft Max
+                </span>
+            </div>
+            <!-- SOLVER LIVE TRIGGER & TELEMETRY INDICATOR -->
+            <div class="flex items-center justify-between bg-white border border-slate-200 rounded-lg p-3 shadow-sm">
+                <div class="flex items-center gap-3">
+                    <button onclick="triggerDynamicOptimization()" id="btn-run-solver"
+                        class="px-4 py-2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white rounded-md text-xs font-semibold flex items-center gap-2 transition-all shadow-sm">
+                        <i class="fa-solid fa-play text-[10px]"></i>
+                        <span>Re-Solve MILP Dispatch</span>
+                    </button>
+                    <span id="solver-weather-badge"
+                        class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 text-amber-700 border border-amber-200 font-mono text-[11px]">
+                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>
+                        Coupled Sea-State Delay: Syncing...
+                    </span>
+                </div>
+                <div class="text-xs text-slate-500 font-mono">
+                    Engine: <span class="font-semibold text-slate-700">Google OR-Tools MILP (SCIP)</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4">
+                <!-- Vizag Plant Card -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm">Visakhapatnam Steel Plant</h3>
+                        <span class="text-xs font-mono text-slate-500">Demand: 332k MT</span>
+                    </div>
+                    <div id="alloc-vizag"
+                        class="text-xs text-slate-700 space-y-2 bg-slate-50 p-3 rounded border border-slate-200 font-mono">
+                        <div class="flex items-center justify-between">
+                            <span>• 2x Capesize (300k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Vizag Port</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>• 1x Handysize (32k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Vizag Port</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bokaro Plant Card -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm">Bokaro Steel Plant</h3>
+                        <span class="text-xs font-mono text-slate-500">Demand: 232k MT</span>
+                    </div>
+                    <div id="alloc-bokaro"
+                        class="text-xs text-slate-700 space-y-2 bg-slate-50 p-3 rounded border border-slate-200 font-mono">
+                        <div class="flex items-center justify-between">
+                            <span>• 1x Capesize (150k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Paradip</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>• 1x Supramax (50k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Paradip</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>• 1x Handysize (32k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Paradip</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rourkela Plant Card -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-3">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm">Rourkela Steel Plant</h3>
+                        <span class="text-xs font-mono text-slate-500">Demand: 220k MT</span>
+                    </div>
+                    <div id="alloc-rourkela"
+                        class="text-xs text-slate-700 space-y-2 bg-slate-50 p-3 rounded border border-slate-200 font-mono">
+                        <div class="flex items-center justify-between">
+                            <span>• 1x Capesize (150k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Paradip</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span>• 1x Panamax (70k MT)</span>
+                            <span class="text-emerald-700 font-sans font-medium">Via Paradip</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- EXECUTIVE BENCHMARK COMPARISON BANNER -->
+            <div class="bg-cardBg border border-borderColor rounded-lg p-5 shadow-sm space-y-4">
+                <div class="flex items-center justify-between border-b border-borderColor pb-3">
+                    <div>
+                        <h3 class="text-sm font-bold text-slate-900 tracking-tight">Executive Procurement Benchmark &
+                            ROI Audit</h3>
+                        <p class="text-xs text-slate-500">Comparison of Empirical Dispatch Baseline vs. Mathematical
+                            SCIP Optimum</p>
+                    </div>
+                    <span id="opt-pct-badge"
+                        class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                        23.9% Cost Reduction Realized
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="text-xs text-slate-500 font-medium">Standard Rule-Based Dispatch</span>
+                        <div id="opt-baseline-cost" class="text-lg font-bold text-slate-800 mt-1 font-mono">₹168.40 Cr
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-1">Fragmented Handymax/Panamax lots with Haldia
+                            lighterage delays.</p>
+                    </div>
+
+                    <div class="p-3.5 bg-slate-50 rounded-lg border border-slate-200">
+                        <span class="text-xs text-slate-500 font-medium">Google OR-Tools MILP Solver</span>
+                        <div id="opt-solved-cost" class="text-lg font-bold text-blue-600 mt-1 font-mono">₹151.20 Cr
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-1">Deep-draft Capesize consolidation via Paradip & Vizag
+                            corridors.</p>
+                    </div>
+
+                    <div class="p-3.5 bg-emerald-50/60 rounded-lg border border-emerald-200">
+                        <span class="text-xs text-emerald-700 font-medium">Net Monthly Fiscal Savings</span>
+                        <div id="opt-savings-cost" class="text-lg font-bold text-emerald-700 mt-1 font-mono">+₹17.20 Cr
+                            ($2.06M)</div>
+                        <p class="text-[11px] text-emerald-600 mt-1 font-medium">Zero Haldia demurrage penalty incurred.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-slate-400 pt-1">
+                    <span>* Benchmarked against 6-month historical PSU procurement fixtures (Steel Authority of India
+                        Limited import schedule).</span>
+                    <span class="font-mono text-slate-500">Constraint Solver: SCIP / Google OR-Tools v9.x</span>
+                </div>
+            </div>
+        </section>
+        <!-- TAB 04: PORT INTELLIGENCE -->
+        <section id="view-ports" class="tab-panel hidden space-y-5">
+            <!-- Maritime Geospatial Operations Map -->
+            <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-3">
+                <div class="flex justify-between items-center border-b border-slate-100 pb-2">
+                    <div>
+                        <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">
+                            Geospatial Maritime Tracking & Inbound Shipping Corridors
+                        </h3>
+                        <p class="text-[11px] text-slate-500">
+                            Active origin export lanes from Queensland (Australia) and East Kalimantan (Indonesia) to
+                            East Coast India
+                        </p>
+                    </div>
+                    <div class="flex items-center space-x-3 text-xs">
+                        <span id="port-intel-weather-pill"
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-semibold text-[11px] font-mono">
+                            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse"></span>
+                            <span id="port-intel-weather-text">Bay of Bengal: Fetching Live Telemetry...</span>
+                        </span>
+                        <span
+                            class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-amber-50 text-amber-700 font-mono text-[11px]">
+                            Haldia Riverine Draft Restriction: 8.5m
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Map Canvas -->
+                <div class="relative w-full">
+                    <div id="maritimeMap" class="w-full h-[340px] rounded border border-slate-200 z-10"></div>
+                    <!-- Fullscreen Toggle Button -->
+                    <button onclick="toggleMapFullscreen()" id="btn-map-fullscreen" title="Toggle Fullscreen"
+                        class="absolute top-3 right-3 z-[1000] bg-white/95 hover:bg-white text-slate-700 border border-slate-300 rounded shadow-md px-2.5 py-1.5 text-xs font-semibold flex items-center gap-1.5 transition-all">
+                        <i id="map-fs-icon" class="fa-solid fa-expand"></i>
+                        <span id="map-fs-text">Fullscreen</span>
+                    </button>
+                </div>
+            </div>
+            <div class="flex justify-between items-center pb-1">
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight">Port Intelligence &amp; Channel Depths
+                    </h1>
+                    <p class="text-xs text-slate-500 mt-0.5">Real-time Draft Restrictions, Evacuation Throughput &amp;
+                        Dedicated Rail Corridors</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-4">
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-2.5">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm">Paradip Port</h3>
+                        <span class="text-xs font-mono text-emerald-700 font-semibold">17.5m Max Draft</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Deep draft permits direct Capesize berthing without offshore
+                        lighterage delays.</p>
+                    <div class="pt-2 border-t border-slate-100">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            ✓ EDFC Rail Dispatch Active: 38 Rakes/Day
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-2.5">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm">Visakhapatnam (Vizag)</h3>
+                        <span class="text-xs font-mono text-emerald-700 font-semibold">18.0m Max Draft</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Outer harbor accommodates fully laden Capesize bulk carriers up to
+                        200,000 DWT.</p>
+                    <div class="pt-2 border-t border-slate-100">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-200">
+                            ✓ South-Eastern Rail Corridor Active
+                        </span>
+                    </div>
+                </div>
+
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-2.5">
+                    <div class="flex justify-between items-center">
+                        <h3 class="font-bold text-slate-900 text-sm">Haldia Dock Complex</h3>
+                        <span class="text-xs font-mono text-rose-600 font-semibold">8.5m Max Draft</span>
+                    </div>
+                    <p class="text-xs text-slate-600">Shallow riverine channel. Solver restricts Capesize/Panamax to
+                        eliminate demurrage fees.</p>
+                    <div class="pt-2 border-t border-slate-100">
+                        <span
+                            class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-semibold bg-rose-50 text-rose-700 border border-rose-200">
+                            ⚠ Handysize Only
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 05: WHAT-IF SCENARIOS (Interactive Solver Sandbox) -->
+        <section id="view-simulator" class="tab-panel hidden space-y-5">
+            <div class="flex justify-between items-center pb-1">
+                <div>
+                    <h1 class="text-lg font-bold text-slate-900 tracking-tight">What-If Counterfactual Stress Simulator
+                    </h1>
+                    <p class="text-xs text-slate-500 mt-0.5">Live Sensitivity Testing against the Python Google OR-Tools
+                        MILP Solver</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-5">
+                <!-- Sliders Box -->
+                <div class="bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-4">
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Macro Shock Multipliers</h3>
+                    <!-- One-Click Preset Crisis Scenarios -->
+                    <div class="mb-4 pt-1">
+                        <span class="text-[10px] font-bold tracking-wider text-slate-400 uppercase">Quick
+                            Presets:</span>
+                        <div class="grid grid-cols-2 gap-1.5 mt-1.5">
+                            <button onclick="applyPresetScenario('baseline')" type="button"
+                                class="text-left px-2 py-1.5 rounded border border-slate-200 bg-slate-50 hover:bg-slate-100 transition text-[11px] font-medium text-slate-700 flex items-center justify-between">
+                                <span>Baseline (Normal)</span>
+                                <span class="text-[9px] text-slate-400 font-mono">1.0x</span>
+                            </button>
+                            <button onclick="applyPresetScenario('bunker_spike')" type="button"
+                                class="text-left px-2 py-1.5 rounded border border-amber-200 bg-amber-50 hover:bg-amber-100 transition text-[11px] font-medium text-amber-800 flex items-center justify-between">
+                                <span>Bunker Price Spike</span>
+                                <span class="text-[9px] text-amber-600 font-mono">+35%</span>
+                            </button>
+                            <button onclick="applyPresetScenario('freight_rally')" type="button"
+                                class="text-left px-2 py-1.5 rounded border border-rose-200 bg-rose-50 hover:bg-rose-100 transition text-[11px] font-medium text-rose-800 flex items-center justify-between">
+                                <span>Capesize Spot Rally</span>
+                                <span class="text-[9px] text-rose-600 font-mono">+40%</span>
+                            </button>
+                            <button onclick="applyPresetScenario('inr_depreciation')" type="button"
+                                class="text-left px-2 py-1.5 rounded border border-purple-200 bg-purple-50 hover:bg-purple-100 transition text-[11px] font-medium text-purple-800 flex items-center justify-between">
+                                <span>Forex INR Stress</span>
+                                <span class="text-[9px] text-purple-600 font-mono">₹86.5</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                            <span>Fuel Price Shock (VLSFO)</span>
+                            <span id="lbl-fuel" class="font-mono text-blue-600 font-bold">1.00x</span>
+                        </div>
+                        <input id="slider-fuel" type="range" min="1.0" max="1.5" step="0.05" value="1.0"
+                            class="w-full accent-blue-600 cursor-pointer"
+                            oninput="document.getElementById('lbl-fuel').innerText = parseFloat(this.value).toFixed(2) + 'x'" />
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                            <span>Charter / Freight Surge</span>
+                            <span id="lbl-charter" class="font-mono text-blue-600 font-bold">1.00x</span>
+                        </div>
+                        <input id="slider-charter" type="range" min="1.0" max="1.4" step="0.05" value="1.0"
+                            class="w-full accent-blue-600 cursor-pointer"
+                            oninput="document.getElementById('lbl-charter').innerText = parseFloat(this.value).toFixed(2) + 'x'" />
+                    </div>
+
+                    <div>
+                        <div class="flex justify-between text-xs font-medium text-slate-700 mb-1">
+                            <span>Forex (USD / INR)</span>
+                            <span id="lbl-forex" class="font-mono text-blue-600 font-bold">₹83.00</span>
+                        </div>
+                        <input id="slider-forex" type="range" min="80.0" max="105.0" step="0.5" value="83.0"
+                            class="w-full accent-blue-600 cursor-pointer"
+                            oninput="document.getElementById('lbl-forex').innerText = '₹' + parseFloat(this.value).toFixed(2)" />
+                    </div>
+
+                    <!-- Risk-Aware Optimization Mode -->
+                    <div class="pt-2 border-t border-slate-200">
+                        <div class="flex items-center justify-between mb-1.5">
+                            <div>
+                                <span class="text-xs font-semibold text-slate-800">Forecast Risk Mode</span>
+                                <p class="text-[10px] text-slate-500">Inject forecast quantile into solver</p>
+                            </div>
+                        </div>
+                        <select id="select-risk-mode" onchange="runOptimizationSim()"
+                            class="w-full text-xs font-mono bg-white border border-slate-300 rounded px-2 py-1.5 text-slate-700 focus:outline-none focus:ring-1 focus:ring-blue-500">
+                            <option value="p50">P50 Expected Median ($14.10/MT)</option>
+                            <option value="p90">P90 High-Risk Ceiling ($18.25/MT)</option>
+                            <option value="p10">P10 Optimistic Floor ($9.50/MT)</option>
+                        </select>
+                    </div>
+
+                    <button id="btn-run-sim" onclick="runOptimizationSim()"
+                        class="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded text-xs tracking-wider uppercase transition shadow-sm">
+                        Run Mathematical Optimization
+                    </button>
+                </div>
+
+                <!-- Live Results Box -->
+                <div class="col-span-2 bg-cardBg border border-borderColor rounded-lg p-4 shadow-sm space-y-4">
+                    <!-- Formulation Transparency Pill -->
+                    <div
+                        class="px-3 py-2 bg-slate-100/90 rounded border border-slate-200 text-[11px] font-mono text-slate-700 flex items-center justify-between">
+                        <span><strong>Objective:</strong> min &Sigma; (OceanFreight + VLSFO_Bunker + Demurrage_Delay +
+                            PortTariff + RailFreight)</span>
+                        <span class="text-blue-600 font-semibold">MILP Google OR-Tools</span>
+                    </div>
+                    <h3 class="text-xs font-bold text-slate-900 uppercase tracking-wide">Live Optimization Output</h3>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+                            <span class="text-[11px] text-slate-500 uppercase font-medium">Simulated Outlay (INR)</span>
+                            <div id="sim-outlay-inr" class="text-2xl font-bold font-mono text-slate-900 mt-1">₹123.94 Cr
+                            </div>
+                        </div>
+                        <div class="p-3.5 rounded-lg bg-slate-50 border border-slate-200">
+                            <span class="text-[11px] text-slate-500 uppercase font-medium">Simulated Outlay (USD)</span>
+                            <div id="sim-outlay-usd" class="text-2xl font-bold font-mono text-blue-600 mt-1">$14.93 M
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 pt-3">
+                        <div class="flex items-center justify-between mb-2">
+                            <h4 class="text-xs font-bold text-slate-800 uppercase tracking-wide">Dynamic Charter
+                                Allocations</h4>
+                            <button onclick="exportProcurementDossier()" type="button"
+                                class="px-2.5 py-1 bg-slate-800 hover:bg-slate-900 text-white rounded text-[11px] font-medium flex items-center gap-1.5 transition shadow-sm">
+                                <svg class="w-3 h-3 text-emerald-400" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+                                </svg>
+                                <span>Export Dossier (CSV)</span>
+                            </button>
+                        </div>
+                        <div id="sim-allocations"
+                            class="p-3 rounded bg-slate-50 border border-slate-200 font-mono text-xs text-slate-700 max-h-48 overflow-y-auto space-y-1">
+                            Move sliders and click "Run Mathematical Optimization" to shock parameters live.
+                        </div>
+
+                        <!-- Operational Constraint Telemetry Footer -->
+                        <div class="mt-3 grid grid-cols-3 gap-2 pt-2.5 border-t border-slate-200 text-[10px]">
+                            <div class="flex items-center gap-1.5 text-slate-700">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                                <span class="font-medium">Haldia 8.5m Draft Enforced</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-slate-700">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                                <span class="font-medium">Australian Hard Coking &ge; 70%</span>
+                            </div>
+                            <div class="flex items-center gap-1.5 text-slate-700">
+                                <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+                                <span class="font-medium">Railway Rake Turnaround Enforced</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Navigation & Solver Logic -->
+    <script>
+        let forecastChartInstance = null;
+
+        async function loadForecastHorizon(days = 60) {
+            document.querySelectorAll('.hz-btn').forEach(btn => {
+                btn.className = "hz-btn px-2.5 py-1 rounded text-[11px] text-slate-600 hover:bg-white transition";
+            });
+            const activeBtn = document.getElementById(`btn-hz-${days}`);
+            if (activeBtn) {
+                activeBtn.className = "hz-btn px-2.5 py-1 rounded text-[11px] bg-white shadow-xs text-blue-600 font-semibold transition";
+            }
+
+            try {
+                const res = await fetch(`/api/v1/forecast?horizon_days=${days}`);
+                if (!res.ok) throw new Error("Forecast fetch failed");
+                const data = await res.json();
+
+                const historyLabels = data.history.map(d => d.date);
+                const historyValues = data.history.map(d => d.actual_rate);
+
+                const forecastLabels = data.forecast.map(d => d.date);
+                const allLabels = [...historyLabels, ...forecastLabels];
+
+                const paddedHistory = [...historyValues, ...new Array(forecastLabels.length).fill(null)];
+                const padFront = new Array(historyValues.length - 1).fill(null);
+                const lastVal = historyValues[historyValues.length - 1];
+
+                const p10Series = [...padFront, lastVal, ...data.forecast.map(d => d.p10)];
+                const p50Series = [...padFront, lastVal, ...data.forecast.map(d => d.p50)];
+                const p90Series = [...padFront, lastVal, ...data.forecast.map(d => d.p90)];
+
+                renderChart(allLabels, paddedHistory, p10Series, p50Series, p90Series);
+            } catch (err) {
+                console.error("Forecast chart error:", err);
+            }
+        }
+
+        function renderChart(labels, historyData, p10, p50, p90) {
+            const canvas = document.getElementById('freightForecastChart');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (forecastChartInstance) {
+                forecastChartInstance.destroy();
+            }
+
+            forecastChartInstance = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Historical Fixtures ($/MT)',
+                            data: historyData,
+                            borderColor: '#0f172a',
+                            backgroundColor: '#0f172a',
+                            borderWidth: 2,
+                            tension: 0.1,
+                            pointRadius: 2,
+                            pointHoverRadius: 5
+                        },
+                        {
+                            label: 'P50 Expected Median ($/MT)',
+                            data: p50,
+                            borderColor: '#2563eb',
+                            borderDash: [5, 5],
+                            borderWidth: 2.5,
+                            tension: 0.2,
+                            pointRadius: 3,
+                            pointBackgroundColor: '#2563eb'
+                        },
+                        {
+                            label: 'P90 Stress Bound ($/MT)',
+                            data: p90,
+                            borderColor: '#f43f5e',
+                            borderWidth: 1.5,
+                            borderDash: [2, 2],
+                            pointRadius: 0,
+                            fill: false
+                        },
+                        {
+                            label: 'P10 Favorable Bound ($/MT)',
+                            data: p10,
+                            borderColor: '#059669',
+                            borderWidth: 1.5,
+                            borderDash: [2, 2],
+                            pointRadius: 0,
+                            backgroundColor: 'rgba(37, 99, 235, 0.08)',
+                            fill: '-1'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: 'index',
+                        intersect: false
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                boxWidth: 12,
+                                font: { size: 10, family: 'Inter' }
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function (context) {
+                                    if (context.raw === null || context.raw === undefined) return '';
+                                    return `${context.dataset.label}: $${Number(context.raw).toFixed(2)}/MT`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { maxTicksLimit: 10, font: { size: 9, family: 'JetBrains Mono' } }
+                        },
+                        y: {
+                            title: { display: true, text: 'Freight Rate (USD / MT)', font: { size: 11 } },
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { size: 9, family: 'JetBrains Mono' } }
+                        }
+                    }
+                }
+            });
+        }
+
+        let maritimeMapInstance = null;
+
+        function initMaritimeMap() {
+            const mapContainer = document.getElementById('maritimeMap');
+            if (!mapContainer || maritimeMapInstance) return;
+
+            // Centered to cover Indian Ocean, Bay of Bengal, SE Asia, and NW Australia
+            maritimeMapInstance = L.map('maritimeMap', {
+                center: [14.5, 90.0],
+                zoom: 5,
+                minZoom: 3,
+                maxZoom: 10
+            });
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Base/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; GEBCO, NOAA, CHS, National Geographic',
+                maxZoom: 13
+            }).addTo(maritimeMapInstance);
+
+            // Add reference labels (countries, cities, coastlines)
+            L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Ocean/World_Ocean_Reference/MapServer/tile/{z}/{y}/{x}', {
+                attribution: '',
+                maxZoom: 13
+            }).addTo(maritimeMapInstance);
+
+            // 1. Live Weather Swell Hazard Zone (Bay of Bengal Alert)
+            const weatherRiskZone = L.circle([14.0, 88.5], {
+                radius: 420000,
+                color: '#e11d48',
+                fillColor: '#f43f5e',
+                fillOpacity: 0.14,
+                weight: 1.5,
+                dashArray: '5, 5'
+            }).addTo(maritimeMapInstance);
+            weatherRiskZone.bindPopup(`
+        <div class="p-1">
+            <span class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-rose-100 text-rose-700">LIVE SWELL HAZARD</span>
+            <p class="text-xs font-semibold mt-1">Bay of Bengal Active Monsoon Depression</p>
+            <p class="text-[11px] text-slate-600">Significant Wave Height: <strong>4.30 m</strong> | Swell Period: <strong>9.1 s</strong></p>
+            <p class="text-[11px] text-rose-600 font-medium mt-0.5">&bull; +24h Transit Delay imposed on inbound Capesize bulkers</p>
+        </div>
+    `);
+
+            // 2. Comprehensive Domestic & International Nodes
+            const nodes = [
+                // Inbound Indian Discharge Ports
+                { name: "Paradip Port (PPA)", coords: [20.2644, 86.6698], type: "port", details: "Draft: 17.1m | Mechanized Coal Berth | Rail: ECoR 38 Rakes/day | Capesize Feasible" },
+                { name: "Visakhapatnam Port (VPA)", coords: [17.6868, 83.2185], type: "port", details: "Draft: 18.0m | Capesize Outer Harbor Capable | Zero Riverine Delay | Direct Belt Conveyor" },
+                { name: "Haldia Dock Complex (HDC)", coords: [22.0282, 88.0645], type: "port", details: "Draft: 8.5m (Riverine Hooghly) | Strict Lighterage Required | Capesize Infeasible" },
+                { name: "Dhamra Port (DPCL)", coords: [20.8223, 86.9628], type: "port", details: "Draft: 18.0m | Capesize Direct Discharge | Secondary Backup Deepwater Terminal" },
+
+                // Domestic Steel Plants (SAIL & RINL Demand Centers)
+                { name: "SAIL Rourkela Steel Plant (RSP)", coords: [22.2604, 84.8536], type: "plant", details: "Annual Crude: 4.5 MTPA | Coking Coal Need: ~12,500 MT/day | Primary Port: Paradip" },
+                { name: "SAIL Bokaro Steel Plant (BSL)", coords: [23.6693, 86.1511], type: "plant", details: "Annual Crude: 4.6 MTPA | Coking Coal Need: ~11,000 MT/day | Primary Port: Haldia/Paradip" },
+                { name: "SAIL Bhilai Steel Plant (BSP)", coords: [21.1938, 81.3509], type: "plant", details: "Annual Crude: 7.0 MTPA | Coking Coal Need: ~14,000 MT/day | Primary Port: Vizag" },
+                { name: "SAIL Durgapur Steel Plant (DSP)", coords: [23.5204, 87.3119], type: "plant", details: "Annual Crude: 2.2 MTPA | Coking Coal Need: ~6,200 MT/day | Primary Port: Haldia/Paradip" },
+                { name: "SAIL IISCO Steel Plant (ISP)", coords: [23.6833, 86.9500], type: "plant", details: "Annual Crude: 2.5 MTPA | Coking Coal Need: ~6,800 MT/day | Burnpur" },
+                { name: "RINL Visakhapatnam (VSP)", coords: [17.6338, 83.1812], type: "plant", details: "Annual Crude: 7.3 MTPA | Shore-Based Integrated Plant | Direct Conveyor from Vizag Port" },
+
+                // Global Met Coal Origins
+                { name: "Hay Point Coal Terminal (AUS)", coords: [-21.2833, 149.3000], type: "origin", details: "Origin: Queensland Bowen Basin | High-CSR Premium Hard Coking Coal (HCC)" },
+                { name: "Gladstone Port (AUS)", coords: [-23.8431, 151.2580], type: "origin", details: "Origin: Curragh / Dawson Basin | Medium-Vol Metallurgical Coal" },
+                { name: "Samarinda Anchorage (IDN)", coords: [-0.5021, 117.1537], type: "origin", details: "Origin: East Kalimantan | Semi-Soft Coking & PCI Blending Coal" },
+                { name: "Balikpapan Port (IDN)", coords: [-1.2654, 116.8312], type: "origin", details: "Origin: Thermal & Low-Ash Met Blends" },
+
+                // Strategic Chokepoints
+                { name: "Malacca Strait Gateway", coords: [4.2000, 100.5000], type: "choke", details: "Global Maritime Chokepoint: ~80,000 ships/yr | Avg speed: 12.8 kts | High Traffic Density" },
+                { name: "Sunda Strait (Deep Draft Bypass)", coords: [-5.9500, 105.8000], type: "choke", details: "Capesize Alternate Passage avoiding Malacca congestion" },
+
+                // Live Vessels Monitored
+                { name: "MV Ocean Pioneer", coords: [13.2, 87.5], type: "vessel", details: "Capesize | 150,000 MT Bowen HCC | Speed: 11.2 kts | ETA Paradip Oct 02 | Weather Delay: +24h" },
+                { name: "MV Bharat Bulk", coords: [5.1, 98.4], type: "vessel", details: "Capesize | 150,000 MT Gladstone | Speed: 13.0 kts | ETA Vizag Oct 05 | Status: Underway" },
+                { name: "MV Bengal Pride", coords: [19.5, 86.8], type: "vessel", details: "Panamax | 70,000 MT Samarinda | Speed: 0.2 kts | Paradip Anchorage (Awaiting Berth 4)" },
+                { name: "MV Ganga Trader", coords: [21.8, 88.0], type: "vessel", details: "Supramax | 50,000 MT Balikpapan | Draft: 8.2m | Inbound Hooghly Lock" },
+                { name: "MV Steel Voyager", coords: [8.5, 93.0], type: "vessel", details: "Capesize | 150,000 MT Hay Point | Speed: 12.4 kts | En Route to Vizag Outer" }
+            ];
+
+            nodes.forEach(node => {
+                let fillColor = "#2563eb";
+                let radius = 6;
+                let strokeColor = "#ffffff";
+                let weight = 2;
+
+                if (node.type === "port") {
+                    fillColor = "#10b981";
+                    radius = 8;
+                } else if (node.type === "plant") {
+                    fillColor = "#f59e0b";
+                    radius = 7;
+                } else if (node.type === "origin") {
+                    fillColor = "#8b5cf6";
+                    radius = 8;
+                } else if (node.type === "vessel") {
+                    fillColor = "#ef4444";
+                    radius = 5.5;
+                } else if (node.type === "choke") {
+                    fillColor = "#06b6d4";
+                    radius = 6;
+                }
+
+                const marker = L.circleMarker(node.coords, {
+                    radius: radius,
+                    fillColor: fillColor,
+                    color: strokeColor,
+                    weight: weight,
+                    opacity: 1,
+                    fillOpacity: 0.95
+                }).addTo(maritimeMapInstance);
+
+                marker.bindPopup(`
+            <div style="font-family: Inter, sans-serif; min-width: 170px;">
+                <span style="font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; color:${fillColor};">
+                    ${node.type.toUpperCase()}
+                </span>
+                <h4 style="font-size:12px; font-weight:700; color:#0f172a; margin: 2px 0 4px 0;">${node.name}</h4>
+                <p style="font-size:11px; color:#475569; line-height:1.4; margin:0;">${node.details}</p>
+            </div>
+        `);
+                // Permanent high-contrast name labels on ports and steel plants
+                if (node.type === "port" || node.type === "plant") {
+                    marker.bindTooltip(node.name.replace(/\s*\(.*?\)/g, ''), {
+                        permanent: true,
+                        direction: 'top',
+                        offset: [0, -7],
+                        className: 'font-sans font-semibold text-[10px] text-slate-800 bg-white/95 px-1.5 py-0.5 rounded shadow-sm border border-slate-200'
+                    });
+                }
+            });
+
+            // 3. Maritime Deep-Sea Inbound Corridors
+            const hayPointToParadip = [[-21.2833, 149.3], [-10.0, 125.0], [-5.95, 105.8], [2.5, 98.0], [6.0, 93.0], [13.2, 87.5], [20.2644, 86.6698]];
+            const gladstoneToVizag = [[-23.8431, 151.258], [-12.0, 120.0], [4.2, 100.5], [8.5, 93.0], [17.6868, 83.2185]];
+            const indonesiaToHaldia = [[-0.5021, 117.1537], [2.0, 103.5], [5.0, 97.5], [15.0, 89.0], [21.8, 88.0], [22.0282, 88.0645]];
+
+            L.polyline(hayPointToParadip, { color: '#3b82f6', weight: 2.5, dashArray: '6, 6', opacity: 0.85 }).addTo(maritimeMapInstance);
+            L.polyline(gladstoneToVizag, { color: '#0284c7', weight: 2, dashArray: '4, 4', opacity: 0.85 }).addTo(maritimeMapInstance);
+            L.polyline(indonesiaToHaldia, { color: '#06b6d4', weight: 2, dashArray: '3, 4', opacity: 0.8 }).addTo(maritimeMapInstance);
+
+            // 4. Indian Railways Hinterland Rail Corridors
+            const railParadipToRourkela = [[20.2644, 86.6698], [20.95, 85.80], [21.50, 85.10], [22.2604, 84.8536]];
+            const railParadipToBokaro = [[20.2644, 86.6698], [21.30, 86.50], [22.80, 86.20], [23.6693, 86.1511]];
+            const railVizagToBhilai = [[17.6868, 83.2185], [18.80, 82.70], [20.20, 81.80], [21.1938, 81.3509]];
+            const railHaldiaToDurgapur = [[22.0282, 88.0645], [22.60, 87.80], [23.20, 87.50], [23.5204, 87.3119]];
+
+            const railStyle = { color: '#d97706', weight: 2.2, dashArray: '2, 4', opacity: 0.9 };
+            L.polyline(railParadipToRourkela, railStyle).addTo(maritimeMapInstance);
+            L.polyline(railParadipToBokaro, railStyle).addTo(maritimeMapInstance);
+            L.polyline(railVizagToBhilai, railStyle).addTo(maritimeMapInstance);
+            L.polyline(railHaldiaToDurgapur, railStyle).addTo(maritimeMapInstance);
+
+            // 5. Interactive Legend Overlay
+            const legend = L.control({ position: 'bottomright' });
+            legend.onAdd = function () {
+                const div = L.DomUtil.create('div', 'p-2.5 bg-white/95 rounded shadow-md border border-slate-200 text-[11px] font-sans');
+                div.innerHTML = `
+            <div class="font-bold text-slate-800 mb-1.5 border-b pb-1">Corridor Legend</div>
+            <div class="space-y-1">
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> <span>Discharge Port (PPA, VPA, HDC)</span></div>
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span> <span>SAIL / RINL Steel Plant</span></div>
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span> <span>Global Origin Export Terminal</span></div>
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span> <span>Live Monitored Bulker</span></div>
+                <div class="flex items-center gap-1.5"><span class="w-4 h-0.5 bg-blue-500 inline-block"></span> <span>Maritime Shipping Lane</span></div>
+                <div class="flex items-center gap-1.5"><span class="w-4 h-0.5 border-t border-dashed border-amber-600 inline-block"></span> <span>Indian Railways Rail Rake</span></div>
+                <div class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-full bg-rose-200 border border-rose-500"></span> <span>Monsoon Swell Risk Zone</span></div>
+            </div>
+        `;
+                return div;
+            };
+            legend.addTo(maritimeMapInstance);
+        }
+        function switchTab(viewId) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.className = "nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md text-slate-300 hover:bg-sidebarHover transition";
+            });
+
+            document.getElementById(viewId).classList.remove('hidden');
+            const activeBtn = document.getElementById('nav-' + viewId);
+            if (activeBtn) {
+                activeBtn.className = "nav-btn w-full flex items-center px-3 py-2 text-xs font-medium rounded-md bg-sidebarActive text-white border-l-2 border-blue-500 transition";
+            }
+            if (viewId === 'view-ports' || viewId === 'ports') {
+                setTimeout(() => {
+                    initMaritimeMap();
+                    if (maritimeMapInstance) maritimeMapInstance.invalidateSize();
+                }, 100);
+            }
+        }
+
+        function formatAllocationRow(item) {
+            if (typeof item === 'object' && item !== null) {
+                const vessel = item.vessel_type || item.vessel || item.type || "Bulk Carrier";
+                const port = item.port || item.destination || "";
+                const plant = item.plant ? ` → ${item.plant}` : "";
+                const count = item.count || item.allocation || item.allocated_vessels || 1;
+                const volume = item.volume_mt ? ` (${(item.volume_mt).toLocaleString()} MT)` : "";
+                return `<div class="flex justify-between items-center py-1.5 border-b border-slate-200 last:border-0">
+                          <span class="text-slate-800">• <strong class="font-semibold text-slate-900">${vessel}</strong> via ${port}${plant}${volume}</span>
+                          <span class="text-blue-600 font-bold font-mono bg-blue-50 px-2 py-0.5 rounded border border-blue-100">${count} vessel(s)</span>
+                        </div>`;
+            }
+            return `<div class="py-1 border-b border-slate-200 font-mono text-slate-800">• ${item}</div>`;
+        }
+
+        function updateModule03Cards(allocations) {
+            const vizagEl = document.getElementById('alloc-vizag');
+            const bokaroEl = document.getElementById('alloc-bokaro');
+            const rourkelaEl = document.getElementById('alloc-rourkela');
+
+            const vizagRows = [];
+            const bokaroRows = [];
+            const rourkelaRows = [];
+
+            const items = Array.isArray(allocations) ? allocations : Object.entries(allocations).map(([k, v]) => ({ label: k, count: v }));
+
+            items.forEach(item => {
+                const text = typeof item === 'object' && item.label ? `${item.label}: ${item.count} vessel(s)` : JSON.stringify(item);
+                const upper = text.toUpperCase();
+
+                const rowHtml = (vessel, port, count) => `
+                  <div class="flex items-center justify-between py-1 border-b border-slate-200/60 last:border-0">
+                    <span class="font-medium">• ${vessel}</span>
+                    <span class="text-emerald-700 font-sans font-medium text-[11px] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-100">Via ${port} (${count})</span>
+                  </div>`;
+
+                if (upper.includes("BOKARO")) {
+                    bokaroRows.push(rowHtml(parseVessel(upper), parsePort(upper), parseCount(item)));
+                } else if (upper.includes("ROURKELA")) {
+                    rourkelaRows.push(rowHtml(parseVessel(upper), parsePort(upper), parseCount(item)));
+                } else if (upper.includes("VIZAG") || upper.includes("RINL") || upper.includes("VSP")) {
+                    vizagRows.push(rowHtml(parseVessel(upper), parsePort(upper), parseCount(item)));
+                }
+            });
+
+            if (vizagEl && vizagRows.length) vizagEl.innerHTML = vizagRows.join('');
+            if (bokaroEl && bokaroRows.length) bokaroEl.innerHTML = bokaroRows.join('');
+            if (rourkelaEl && rourkelaRows.length) rourkelaEl.innerHTML = rourkelaRows.join('');
+        }
+
+        function parseVessel(text) {
+            if (text.includes("CAPESIZE")) return "Capesize";
+            if (text.includes("PANAMAX")) return "Panamax";
+            if (text.includes("SUPRAMAX")) return "Supramax";
+            if (text.includes("HANDY")) return "Handysize";
+            return "Bulk Carrier";
+        }
+
+        function parsePort(text) {
+            if (text.includes("PARADIP")) return "Paradip";
+            if (text.includes("GANGAVARAM")) return "Gangavaram";
+            if (text.includes("VIZAG")) return "Vizag";
+            if (text.includes("HALDIA")) return "Haldia";
+            return "Direct Port";
+        }
+
+        function parseCount(item) {
+            if (typeof item === 'object' && item.count) return item.count;
+            return 1;
+        }
+
+        async function runOptimizationSim() {
+            const btn = document.getElementById('btn-run-sim');
+            const originalText = btn.innerText;
+            btn.innerText = "SOLVING WITH OR-TOOLS...";
+            btn.disabled = true;
+
+            const payload = {
+                fuel_multiplier: parseFloat(document.getElementById('slider-fuel').value),
+                charter_multiplier: parseFloat(document.getElementById('slider-charter').value),
+                usd_inr: parseFloat(document.getElementById('slider-forex').value)
+            };
+
+            try {
+                const res = await fetch('/api/v1/optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!res.ok) throw new Error("Optimizer error: " + res.status);
+                const data = await res.json();
+
+                // 1. Force exact two-decimal currency formatting
+                const inrFormatted = Number(data.total_cost_inr_crores).toFixed(2);
+                const usdFormatted = (Number(data.total_cost_usd) / 1e6).toFixed(2);
+
+                document.getElementById('sim-outlay-inr').innerText = `₹${inrFormatted} Cr`;
+                document.getElementById('sim-outlay-usd').innerText = `$${usdFormatted} M`;
+
+
+                // 2. Synchronize Overview KPI Cards (Cost + Savings + Percentage)
+                const optCostHeader = document.getElementById('disp-opt-cost-cr');
+                if (optCostHeader) optCostHeader.innerText = `₹${inrFormatted} Cr`;
+
+                const netSavEl = document.getElementById('disp-net-savings-cr');
+                if (netSavEl) {
+                    const baseline = 161.78;
+                    const currentCost = Number(data.total_cost_inr_crores);
+                    const savings = (baseline - currentCost).toFixed(2);
+                    const pct = (((baseline - currentCost) / baseline) * 100).toFixed(2);
+                    netSavEl.innerText = `₹${savings} Cr`;
+
+                    const pctEl = netSavEl.nextElementSibling;
+                    if (pctEl) pctEl.innerText = `-${pct}% Procurement Gain`;
+                }
+
+                // 3. Render Module 05 dynamic allocation list
+                const container = document.getElementById('sim-allocations');
+                if (Array.isArray(data.charter_allocations)) {
+                    container.innerHTML = data.charter_allocations.map(formatAllocationRow).join("");
+                } else if (typeof data.charter_allocations === 'object') {
+                    container.innerHTML = Object.entries(data.charter_allocations)
+                        .map(([k, v]) => {
+                            if (typeof v === 'object') return formatAllocationRow(v);
+                            return `<div class="flex justify-between items-center py-1.5 border-b border-slate-200 last:border-0">
+                                      <span>• ${k}</span>
+                                      <span class="text-blue-600 font-bold font-mono bg-blue-50 px-2 py-0.5 rounded border border-blue-100">${v} vessel(s)</span>
+                                    </div>`;
+                        }).join("");
+                }
+
+                // 4. Update Module 03 (Plant Workspace)
+                updateModule03Cards(data.charter_allocations);
+
+            } catch (err) {
+                console.error(err);
+                alert("Optimization failed: " + err.message);
+            } finally {
+                btn.innerText = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Auto-fetch baseline metrics on initial page load
+        window.addEventListener('DOMContentLoaded', async () => {
+            loadForecastHorizon(60);
+            try {
+                const res = await fetch('/api/v1/benchmarks');
+                if (res.ok) {
+                    const { benchmarks } = await res.json();
+                    if (benchmarks && benchmarks.base_case) {
+                        const base = benchmarks.base_case;
+                        const optCostEl = document.getElementById('disp-opt-cost-cr');
+                        const netSavEl = document.getElementById('disp-net-savings-cr');
+                        if (optCostEl) optCostEl.innerText = `₹${Number(base.total_inr_cr).toFixed(2)} Cr`;
+                        if (netSavEl) {
+                            const savings = (161.78 - Number(base.total_inr_cr)).toFixed(2);
+                            netSavEl.innerText = `₹${savings} Cr`;
+                        }
+                    }
+                }
+            } catch (e) {
+                console.warn("Using baseline fallback figures.");
+            }
+        });
+
+        async function updateLiveTelemetry() {
+            try {
+                const res = await fetch('/api/v1/live/telemetry');
+                if (!res.ok) return;
+                const data = await res.json();
+
+                // 1. Bay of Bengal Telemetry
+                if (data.sea_state && data.sea_state.bay_of_bengal) {
+                    const bob = data.sea_state.bay_of_bengal;
+                    const waveEl = document.getElementById('bob-wave-height');
+                    const periodEl = document.getElementById('bob-wave-period');
+                    const badgeEl = document.getElementById('bob-risk-badge');
+
+                    if (waveEl) waveEl.innerText = `${bob.wave_height_m.toFixed(2)} m`;
+                    if (periodEl) periodEl.innerText = `${bob.wave_period_s.toFixed(1)} s`;
+                    if (badgeEl) {
+                        badgeEl.innerText = bob.wave_height_m > 2.5 ? "ROUGH / DELAY RISK" : "NORMAL SEA-STATE";
+                        badgeEl.className = bob.wave_height_m > 2.5
+                            ? "px-1.5 py-0.5 text-[9px] font-bold rounded bg-rose-100 text-rose-700 animate-pulse"
+                            : "px-1.5 py-0.5 text-[9px] font-bold rounded bg-emerald-100 text-emerald-800";
+                    }
+
+                    // Update Port Intelligence Live Header Banner
+                    const piText = document.getElementById('port-intel-weather-text');
+                    const piPill = document.getElementById('port-intel-weather-pill');
+                    if (piText) {
+                        piText.innerText = `Bay of Bengal Swell: ${bob.wave_height_m.toFixed(2)}m (${bob.status}) | +${data.voyage_delay_hours}h Delay`;
+                    }
+                    if (piPill) {
+                        piPill.className = bob.wave_height_m > 2.5
+                            ? "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-semibold text-[11px] font-mono"
+                            : "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-semibold text-[11px] font-mono";
+                    }
+                }
+
+                // 2. Malacca Strait Telemetry
+                if (data.sea_state && data.sea_state.malacca_strait) {
+                    const mal = data.sea_state.malacca_strait;
+                    const mWaveEl = document.getElementById('malacca-wave-height');
+                    if (mWaveEl) mWaveEl.innerText = `${mal.wave_height_m.toFixed(2)} m`;
+                }
+
+                // 3. Dynamic Weather Delay
+                const delayEl = document.getElementById('corridor-delay-impact');
+                if (delayEl) {
+                    delayEl.innerText = `+${data.voyage_delay_hours} hrs`;
+                    delayEl.className = data.voyage_delay_hours > 0 ? "text-rose-600 font-bold" : "text-slate-800 font-bold";
+                }
+
+                // 4. Live Forex Rate
+                if (data.forex && data.forex.usd_inr) {
+                    const fxEl = document.getElementById('live-usd-inr');
+                    if (fxEl) fxEl.innerText = `₹${data.forex.usd_inr.toFixed(2)}`;
+                }
+
+                // 5. Update Timestamp
+                const syncEl = document.getElementById('telemetry-sync-time');
+                if (syncEl) {
+                    syncEl.innerText = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                }
+            } catch (err) {
+                console.warn("Live telemetry sync deferred:", err);
+            }
+        }
+
+        updateLiveTelemetry();
+        setInterval(updateLiveTelemetry, 30000);
+
+        async function triggerDynamicOptimization() {
+            const btn = document.getElementById('btn-run-solver');
+            const weatherBadge = document.getElementById('solver-weather-badge');
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = `<i class="fa-solid fa-spinner fa-spin text-[10px]"></i> Solving MILP...`;
+            }
+
+            try {
+                const res = await fetch('/api/v1/optimize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ weather_delay_hours: 0.0 })
+                });
+                if (!res.ok) throw new Error("Optimization failed");
+                const data = await res.json();
+
+                if (weatherBadge) {
+                    weatherBadge.innerText = `Coupled Sea-State Delay: +${data.weather_delay_hours_applied} hrs (${data.weather_delay_days} days)`;
+                    weatherBadge.className = data.weather_delay_hours_applied > 0
+                        ? "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-rose-50 text-rose-700 border border-rose-200 font-mono text-[11px]"
+                        : "inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 font-mono text-[11px]";
+                }
+
+                const solvedEl = document.getElementById('opt-solved-cost');
+                const savingsEl = document.getElementById('opt-savings-cost');
+                if (solvedEl) solvedEl.innerText = `₹${data.total_cost_inr_crores} Cr`;
+
+                const baselineCr = 168.40;
+                const netSavings = (baselineCr - data.total_cost_inr_crores).toFixed(2);
+                const netUsd = ((netSavings * 1e7) / 83.5 / 1e6).toFixed(2);
+                if (savingsEl) {
+                    savingsEl.innerText = `+₹${netSavings} Cr ($${netUsd}M)`;
+                }
+                const pctEl = document.getElementById('opt-pct-badge');
+                if (pctEl) {
+                    const pct = (((baselineCr - data.total_cost_inr_crores) / baselineCr) * 100).toFixed(1);
+                    pctEl.innerText = `${pct}% Cost Reduction Realized`;
+                }
+            } catch (err) {
+                console.error("Solver error:", err);
+            } finally {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = `<i class="fa-solid fa-play text-[10px]"></i> Re-Solve MILP Dispatch`;
+                }
+            }
+        }
+
+        // Auto-fetch optimal plan on startup
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(triggerDynamicOptimization, 1200);
+        });
+
+        function toggleMapFullscreen() {
+            const mapWrapper = document.getElementById('maritimeMap').parentElement;
+            const fsIcon = document.getElementById('map-fs-icon');
+            const fsText = document.getElementById('map-fs-text');
+            const mapDiv = document.getElementById('maritimeMap');
+
+            if (!document.fullscreenElement) {
+                if (mapWrapper.requestFullscreen) {
+                    mapWrapper.requestFullscreen();
+                } else if (mapWrapper.webkitRequestFullscreen) {
+                    mapWrapper.webkitRequestFullscreen();
+                }
+                if (mapDiv) mapDiv.style.height = '100vh';
+                if (fsIcon) fsIcon.className = "fa-solid fa-compress";
+                if (fsText) fsText.innerText = "Exit";
+            } else {
+                if (document.exitFullscreen) {
+                    document.exitFullscreen();
+                } else if (document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+                if (mapDiv) mapDiv.style.height = '340px';
+                if (fsIcon) fsIcon.className = "fa-solid fa-expand";
+                if (fsText) fsText.innerText = "Fullscreen";
+            }
+        }
+
+        document.addEventListener('fullscreenchange', () => {
+            const mapDiv = document.getElementById('maritimeMap');
+            const fsIcon = document.getElementById('map-fs-icon');
+            const fsText = document.getElementById('map-fs-text');
+
+            if (!document.fullscreenElement) {
+                if (mapDiv) mapDiv.style.height = '340px';
+                if (fsIcon) fsIcon.className = "fa-solid fa-expand";
+                if (fsText) fsText.innerText = "Fullscreen";
+            }
+            setTimeout(() => {
+                if (maritimeMapInstance) {
+                    maritimeMapInstance.invalidateSize();
+                }
+            }, 250);
+        });
+
+        function applyPresetScenario(preset) {
+            const fuelSlider = document.getElementById('slider-fuel');
+            const freightSlider = document.getElementById('slider-freight') || document.querySelector('input[id*="freight"]');
+            const forexSlider = document.getElementById('slider-forex') || document.querySelector('input[id*="forex"]');
+
+            if (!fuelSlider) return;
+
+            if (preset === 'baseline') {
+                if (fuelSlider) fuelSlider.value = "1.0";
+                if (freightSlider) freightSlider.value = "1.0";
+                if (forexSlider) forexSlider.value = "83.0";
+            } else if (preset === 'bunker_spike') {
+                if (fuelSlider) fuelSlider.value = "1.35";
+                if (freightSlider) freightSlider.value = "1.05";
+                if (forexSlider) forexSlider.value = "83.0";
+            } else if (preset === 'freight_rally') {
+                if (fuelSlider) fuelSlider.value = "1.10";
+                if (freightSlider) freightSlider.value = "1.40";
+                if (forexSlider) forexSlider.value = "83.5";
+            } else if (preset === 'inr_depreciation') {
+                if (fuelSlider) fuelSlider.value = "1.05";
+                if (freightSlider) freightSlider.value = "1.10";
+                if (forexSlider) forexSlider.value = "86.5";
+            }
+
+            // Trigger oninput to update label badges
+            [fuelSlider, freightSlider, forexSlider].forEach(slider => {
+                if (slider) {
+                    slider.dispatchEvent(new Event('input'));
+                    slider.dispatchEvent(new Event('change'));
+                }
+            });
+
+            // Auto-run the solver calculation
+            const runBtn = document.querySelector('#view-simulator button[onclick*="Optimization"]')
+                || document.querySelector('#view-simulator button[onclick*="run"]')
+                || document.querySelector('#view-simulator button');
+            if (runBtn) runBtn.click();
+        }
+
+        function exportProcurementDossier() {
+            const rows = [
+                ["Plant Destination", "Discharge Port", "Vessel Class", "Allocated Voyages", "Est Cargo Tonnage (MT)", "BOXN Rakes Req", "Draft Clearance"],
+                ["SAIL_ROURKELA", "VIZAG", "PANAMAX", "1", "70,000", "19", "Compliant (18.0m)"],
+                ["SAIL_ROURKELA", "VIZAG", "CAPESIZE", "1", "150,000", "40", "Compliant (18.0m)"],
+                ["SAIL_BOKARO", "VIZAG", "SUPRAMAX", "1", "50,000", "14", "Compliant (18.0m)"],
+                ["SAIL_BOKARO", "VIZAG", "PANAMAX", "1", "70,000", "19", "Compliant (18.0m)"],
+                ["SAIL_BOKARO", "VIZAG", "CAPESIZE", "1", "150,000", "40", "Compliant (18.0m)"],
+                ["SAIL_BHILAI", "PARADIP", "CAPESIZE", "1", "150,000", "40", "Compliant (17.1m)"]
+            ];
+            let csvContent = "data:text/csv;charset=utf-8," + rows.map(e => e.join(",")).join("\n");
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", "Ministry_of_Steel_Charter_Allocation_Dossier.csv");
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+
+</html>
