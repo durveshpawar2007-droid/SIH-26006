@@ -68,7 +68,17 @@ def run_milp_optimizer(
         "CAPESIZE": 28000,
     }
 
-    port_monthly_capacity = dict(zip(ports_df["port"], ports_df["monthly_capacity_mt"]))
+    # Resilient column resolution for port capacity
+    cap_col = next((c for c in ["monthly_capacity_mt", "capacity_mt", "max_capacity_mt", "annual_capacity_mt"] if c in ports_df.columns), None)
+
+    if cap_col == "annual_capacity_mt":
+        port_monthly_capacity = dict(zip(ports_df["port"], ports_df[cap_col] / 12.0))
+    elif cap_col:
+        port_monthly_capacity = dict(zip(ports_df["port"], ports_df[cap_col]))
+    else:
+        # Default fallback capacity (in MT) per major port
+        default_caps = {"PARADIP": 800000.0, "VIZAG": 650000.0, "HALDIA": 400000.0}
+        port_monthly_capacity = {p: default_caps.get(p, 500000.0) for p in ports_df["port"]}
 
     # Railway rake dispatch capacity (1 BOXN Rake = ~3,800 MT; 30 days)
     port_daily_rakes = {

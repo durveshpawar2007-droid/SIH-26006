@@ -4,7 +4,6 @@ import pandas as pd
 from fastapi import FastAPI, HTTPException, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from fastapi.responses import FileResponse
 from pathlib import Path
 from pydantic import BaseModel
 from src.optimization.solver import run_milp_optimizer
@@ -28,11 +27,6 @@ app.add_middleware(
 @app.get("/favicon.ico", include_in_schema=False)
 async def favicon():
     return Response(status_code=204)
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
-
-@app.get("/", include_in_schema=False)
-async def serve_index():
-    return FileResponse(BASE_DIR / "index.html")
 
 
 @app.get("/api/v1/live/telemetry")
@@ -198,7 +192,10 @@ def get_forecast_data(horizon_days: int = 60):
     }
 
 
-# ==================== MOUNT STATIC FILES ====================
-frontend_dir = os.path.join(os.getcwd(), "frontend")
-if os.path.exists(frontend_dir):
-    app.mount("/", StaticFiles(directory=frontend_dir, html=True), name="frontend")
+# ==================== MOUNT STATIC FILES & FRONTEND ====================
+# Resolve project root robustly across both local environment and Render
+ROOT_DIR = Path(__file__).resolve().parent.parent.parent
+frontend_dir = ROOT_DIR / "frontend"
+
+if frontend_dir.exists():
+    app.mount("/", StaticFiles(directory=str(frontend_dir), html=True), name="frontend")
